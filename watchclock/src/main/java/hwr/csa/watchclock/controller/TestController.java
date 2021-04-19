@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TestController {
 
-    @GetMapping("/test")
+    @GetMapping(value= {"/bla","/test"})
     public ModelAndView start(){
         ModelAndView modelView = new ModelAndView();
         modelView.setViewName("Test");
