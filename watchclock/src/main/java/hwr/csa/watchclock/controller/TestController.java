@@ -11,7 +11,7 @@ public class TestController {
     @GetMapping("/test")
     public ModelAndView start(){
         ModelAndView modelView = new ModelAndView();
-        modelView.setViewName("Test");
+        modelView.setViewName("Test-Login");
         return modelView;
     }
 
@@ -40,7 +40,7 @@ public class TestController {
         if(user.getEmail()=="abc@gmx.de" && user.getPasswort()=="1234"){
             ModelAndView modelView = new ModelAndView();
             modelView.addObject("user", new User());
-            modelView.setViewName("Test");
+            modelView.setViewName("Test-Login");
             return modelView;
         }else {
             ModelAndView modelView = new ModelAndView();
