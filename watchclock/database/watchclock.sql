@@ -1,4 +1,4 @@
-#drop table hibernate_sequence;
+drop table hibernate_sequence;
 drop table zeiteintrag;
 drop table user;
 
