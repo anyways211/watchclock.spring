@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer personalNr;
+    private long personalNr;
 
     private String vorname;
 
@@ -47,7 +47,7 @@ public class User {
         return this.vorname;
     }
 
-    public Integer getPersonalNr(){
+    public long getPersonalNr(){
         return this.personalNr;
     }
 
