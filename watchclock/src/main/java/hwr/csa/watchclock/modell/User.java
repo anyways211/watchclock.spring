@@ -1,43 +1,48 @@
 package hwr.csa.watchclock.modell;
-
-import org.apache.tomcat.jni.Local;
-
+import javax.persistence.*;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
+
 
 
 @Entity
+@Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long personalNr;
 
+    @Column(name = "vorname")
     private String vorname;
 
+    @Column(name = "nachname")
     private String nachname;
 
+    @Column(name = "email")
     private String email;
 
-    private String passwort;
-
-    private LocalDate geburtsdatum;
-
-    private boolean istAdmin;
-
+    @Column(name = "sollArbeitszeit")
     private int sollArbeitszeit;
 
+    @Column(name = "passwort")
+    private String passwort;
 
-    public User(String vorname, String nachname, String email, String passwort, LocalDate geburtsdatum, boolean istAdmin, int sollArbeitszeit) {
+    @Column (name = "istAdmin")
+    private boolean istAdmin;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Zeiteintrag> zeiteintraege;
+
+    public User(String vorname, String nachname, String email, int sollArbeitszeit, String passwort, boolean istAdmin) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
         this.passwort = passwort;
-        this.geburtsdatum = geburtsdatum;
-        this.istAdmin = istAdmin;
         this.sollArbeitszeit = sollArbeitszeit;
+        this.istAdmin = istAdmin;
     }
 
     public User() {
@@ -51,7 +56,7 @@ public class User {
         return this.personalNr;
     }
 
-    public void setVorname(String Vorname) {
+    public void setVorname(String vorname) {
         this.vorname = vorname;
     }
 
@@ -60,7 +65,7 @@ public class User {
     }
 
     public void setNachname(String nachname) {
-        this.vorname = vorname;
+        this.nachname = nachname;
     }
 
     public String getPasswort() {
@@ -79,25 +84,31 @@ public class User {
         this.email = email;
     }
 
-    public LocalDate getGeburtsdatum() {
-        return this.geburtsdatum;
-    }
-
-    public void setGeburtsdatum(LocalDate geburtsdatum) { this.geburtsdatum = geburtsdatum; }
-
-    public Boolean getIstAdmin() {
-        return this.istAdmin;
-    }
-
-    public void setIstAdmin(Boolean istAdmin) {
-        this.istAdmin = istAdmin;
+    public void setPersonalNr(Integer personalNr) {
+        this.personalNr = personalNr;
     }
 
     public int getSollArbeitszeit() {
-        return this.sollArbeitszeit;
+        return sollArbeitszeit;
     }
 
-    public void setEmail(int sollArbeitszeit) {
+    public void setSollArbeitszeit(int sollArbeitszeit) {
         this.sollArbeitszeit = sollArbeitszeit;
+    }
+
+    public void setIstAdmin(boolean istAdmin) {
+        this.istAdmin = istAdmin;
+    }
+
+    public boolean isIstAdmin() {
+        return istAdmin;
+    }
+
+    public List<Zeiteintrag> getZeiteintraege() {
+        return zeiteintraege;
+    }
+
+    public void setUsers(List<Zeiteintrag> zeiteintraege) {
+        this.zeiteintraege = zeiteintraege;
     }
 }

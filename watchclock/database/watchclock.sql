@@ -1,62 +1,29 @@
--- MySQL dump 10.13  Distrib 8.0.23, for Win64 (x86_64)
---
--- Host: localhost    Database: watchclock
--- ------------------------------------------------------
--- Server version	8.0.23
+#drop table hibernate_sequence;
+drop table zeiteintrag;
+drop table user;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+Create table user (
+	personal_Nr INT(6) auto_increment primary key,
+    vorname VARCHAR(30) NOT NULL,
+	nachname VARCHAR(30) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+    soll_Arbeitszeit INT (2),
+    passwort varchar (50) NOT NULL,
+    ist_Admin boolean);
 
---
--- Table structure for table `user`
---
+Insert into user values (1, "Annika", "Paß", "annika.pass@gmx.de", 40,"sdrftgzhujikol", true);
+Insert into user values (2, "Juliane", "Ruß", "juliane.russ@gmx.de", 40,"23e4rtgh", true); 
+Insert into user values (3, "Sabine", "Lorenz", "sabine.lorenz@gmx.de", 40,"2wertgzh", true);
+Insert into user values (4, "Max", "Mustermann", "max.muster@gmx.de", 40,"qwertz", false);
 
-DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
-  `personalNr` int NOT NULL AUTO_INCREMENT,
-  `vorname` varchar(30) NOT NULL,
-  `nachname` varchar(30) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `sollArbeitszeit` int DEFAULT NULL,
-  `passwort` varchar(50) NOT NULL,
-  `istAdmin` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`personalNr`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+create table zeiteintrag(
+	eintrag_Nr Int(6) auto_increment primary key,
+    datum date not null,
+    von datetime,
+    bis datetime,
+    kommentar varchar(100),
+    personal_Nr int(6),
+    foreign key (personal_Nr) references user(personal_Nr));
+    
+insert into zeiteintrag values(1, "20.04.21", "9.00.00", "15.00.00","", 1);
 
---
--- Table structure for table `zeiteintrag`
---
-
-DROP TABLE IF EXISTS `zeiteintrag`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `zeiteintrag` (
-  `eintragNr` int NOT NULL AUTO_INCREMENT,
-  `Datum` date NOT NULL,
-  `von` datetime DEFAULT NULL,
-  `bis` datetime DEFAULT NULL,
-  PRIMARY KEY (`eintragNr`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2021-04-19 15:50:33

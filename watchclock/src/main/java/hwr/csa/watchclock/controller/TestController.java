@@ -1,15 +1,17 @@
 package hwr.csa.watchclock.controller;
 
 import hwr.csa.watchclock.modell.User;
+import hwr.csa.watchclock.modell.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDate;
-
 
 @Controller
 public class TestController {
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/test")
     public ModelAndView start(){
@@ -22,7 +24,8 @@ public class TestController {
     public ModelAndView startTest2(){
         ModelAndView modelView = new ModelAndView();
         modelView.setViewName("Test2");
-        User user = new User("Paß", "Annika", "annika.pass@gmx.de", "1234", LocalDate.now(), true, 40);
+        User user = new User("Annika", "Paß", "annika.pass@gmx.de",40,  "1234", false);
+        userRepository.save(user);
         modelView.addObject("user", user.getVorname());
         return modelView;
     }
