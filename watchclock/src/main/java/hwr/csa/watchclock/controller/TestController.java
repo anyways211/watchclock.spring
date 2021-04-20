@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+
+
 @Controller
 public class TestController {
 
@@ -19,7 +22,7 @@ public class TestController {
     public ModelAndView startTest2(){
         ModelAndView modelView = new ModelAndView();
         modelView.setViewName("Test2");
-        User user = new User("Paß", "Annika", "annika.pass@gmx.de", "1234");
+        User user = new User("Paß", "Annika", "annika.pass@gmx.de", "1234", LocalDate.now(), true, 40);
         modelView.addObject("user", user.getVorname());
         return modelView;
     }
@@ -37,7 +40,7 @@ public class TestController {
 
     @PostMapping("/logincheck")
     public ModelAndView Login(@ModelAttribute("user") User user){
-        if(user.getEmail()=="abc@gmx.de" && user.getPasswort()=="1234"){
+        if(user.getEmail().equals("abc@gmx.de") && user.getPasswort().equals("1234")){
             ModelAndView modelView = new ModelAndView();
             modelView.addObject("user", new User());
             modelView.setViewName("Test-Login");

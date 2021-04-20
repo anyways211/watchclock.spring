@@ -1,8 +1,13 @@
 package hwr.csa.watchclock.modell;
+
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDate;
+
 
 @Entity
 public class User {
@@ -18,12 +23,21 @@ public class User {
 
     private String passwort;
 
+    private LocalDate geburtsdatum;
 
-    public User(String vorname, String nachname, String email, String passwort) {
+    private boolean istAdmin;
+
+    private int sollArbeitszeit;
+
+
+    public User(String vorname, String nachname, String email, String passwort, LocalDate geburtsdatum, boolean istAdmin, int sollArbeitszeit) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
         this.passwort = passwort;
+        this.geburtsdatum = geburtsdatum;
+        this.istAdmin = istAdmin;
+        this.sollArbeitszeit = sollArbeitszeit;
     }
 
     public User() {
@@ -65,4 +79,25 @@ public class User {
         this.email = email;
     }
 
+    public LocalDate getGeburtsdatum() {
+        return this.geburtsdatum;
+    }
+
+    public void setGeburtsdatum(LocalDate geburtsdatum) { this.geburtsdatum = geburtsdatum; }
+
+    public Boolean getIstAdmin() {
+        return this.istAdmin;
+    }
+
+    public void setIstAdmin(Boolean istAdmin) {
+        this.istAdmin = istAdmin;
+    }
+
+    public int getSollArbeitszeit() {
+        return this.sollArbeitszeit;
+    }
+
+    public void setEmail(int sollArbeitszeit) {
+        this.sollArbeitszeit = sollArbeitszeit;
+    }
 }
