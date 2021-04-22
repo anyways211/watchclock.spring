@@ -1,5 +1,6 @@
 package hwr.csa.watchclock.modell;
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,9 @@ public class User {
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "geburtsdatum")
+    private Date geburtsdatum;
 
     @Column(name = "sollArbeitszeit")
     private int sollArbeitszeit;

@@ -7,6 +7,7 @@ Create table user (
     vorname VARCHAR(30) NOT NULL,
 	nachname VARCHAR(30) NOT NULL,
 	email VARCHAR(50) NOT NULL,
+	geburtsdatum date,
     soll_Arbeitszeit INT (2),
     passwort varchar (50) NOT NULL,
     ist_Admin boolean);
