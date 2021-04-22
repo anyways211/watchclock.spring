@@ -7,7 +7,7 @@ import java.time.LocalTime;
 @Entity
 public class Zeiteintrag {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long eintragNr;
 
     @Column(name = "datum")

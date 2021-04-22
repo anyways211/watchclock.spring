@@ -7,8 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
-
 @Entity
 @Table(name = "user")
 public class User {
@@ -40,7 +38,8 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Zeiteintrag> zeiteintraege;
 
-    public User(String vorname, String nachname, String email, int sollArbeitszeit, String passwort, boolean istAdmin) {
+    public User(String vorname, String nachname, String email, int sollArbeitszeit,
+                String passwort, boolean istAdmin) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
