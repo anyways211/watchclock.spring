@@ -2,7 +2,6 @@ package hwr.csa.watchclock.modell;
 
 import javax.persistence.*;
 import java.sql.*;
-import java.time.LocalTime;
 
 @Entity
 public class Zeiteintrag {
