@@ -5,6 +5,28 @@
     <title>Test2</title>
 </head>
 <body>
- <p th:text="'Hallo ' + ${user} + '!'"/>
+<table  border="8" cellspacing="10" cellpadding="20">
+    <thead>
+    <tr>
+        <th> PersonalNr </th>
+        <th> Vorname </th>
+        <th> Nachname </th>
+        <th> Email </th>
+        <th> Sollarbeitszeit </th>
+        <th> Ist Admin</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td><span th:text="${user.personalNr}"> PersonalNr </span></td>
+        <td><span th:text="${user.vorname}"> Vorname </span></td>
+        <td><span th:text="${user.nachname}"> Nachname </span></td>
+        <td><span th:text="${user.email}"> Email </span></td>
+        <td><span th:text="${user.sollArbeitszeit}"> Sollarbeitszeit </span></td>
+        <td><span th:text="${user.istAdmin}"> Ist Admin </span></td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

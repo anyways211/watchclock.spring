@@ -21,7 +21,7 @@ public class Zeiteintrag {
     @Column(name = "kommentar")
     private String kommentar;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "personalNr")
     private User user;
 

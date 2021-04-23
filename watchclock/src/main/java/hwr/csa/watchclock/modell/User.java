@@ -35,7 +35,7 @@ public class User {
     @Column (name = "istAdmin")
     private boolean istAdmin;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany
     private List<Zeiteintrag> zeiteintraege;
 
     public User(String vorname, String nachname, String email, int sollArbeitszeit,

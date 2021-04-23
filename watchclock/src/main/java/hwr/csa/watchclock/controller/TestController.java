@@ -7,16 +7,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 
 @Controller
 public class TestController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/test")
+    @GetMapping("/allUsers")
     public ModelAndView start(){
         ModelAndView modelView = new ModelAndView();
-        modelView.setViewName("Test-Login");
+        List<User> users = userRepository.findAll();
+        modelView.setViewName("Test2");
+        modelView.addObject("users", users);
         return modelView;
     }
 
