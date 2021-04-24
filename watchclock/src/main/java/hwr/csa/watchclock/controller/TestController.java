@@ -37,7 +37,7 @@ public class TestController {
     @GetMapping("/login")
     public ModelAndView startLogin(){
         ModelAndView modelView = new ModelAndView();
-        modelView.addObject("user", new User());
+        //modelView.addObject("user", new User());
         modelView.setViewName("Login");
         //handle user inputs
 
