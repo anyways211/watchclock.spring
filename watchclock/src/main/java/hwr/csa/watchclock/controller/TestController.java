@@ -45,16 +45,17 @@ public class TestController {
         return modelView;
     }
 
-    @PostMapping("/logincheck")
+    @PostMapping("/login")
     public ModelAndView Login(@ModelAttribute("user") User user){
         if(user.getEmail().equals("abc@gmx.de") && user.getPasswort().equals("1234")){
             ModelAndView modelView = new ModelAndView();
             modelView.addObject("user", new User());
-            modelView.setViewName("Test-Login");
+            modelView.setViewName("Test2");
             return modelView;
         }else {
             ModelAndView modelView = new ModelAndView();
             modelView.addObject("user", new User());
+            modelView.addObject("error", Boolean.TRUE);
             modelView.setViewName("Login");
             return modelView;
         }
