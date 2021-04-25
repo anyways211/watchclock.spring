@@ -27,10 +27,7 @@ public class TestController {
     @GetMapping("/test2")
     public ModelAndView startTest2(){
         ModelAndView modelView = new ModelAndView();
-        modelView.setViewName("Test2");
-        User user = new User("Annika", "Paß", "annika.pass@gmx.de",40,  "1234", false);
-        userRepository.save(user);
-        modelView.addObject("user", user.getVorname());
+        modelView.setViewName("UserOverview");
         return modelView;
     }
 

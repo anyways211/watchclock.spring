@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>WatchClock</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Signika:300,400,500,700">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css" th:href="@{/css/styles.css}">
+    <script href="js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+    <script href="bootstrap/js/bootstrap.min.js" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 
 <body>
@@ -25,14 +27,15 @@
                 </div>
             </nav>
             <div class="text-center" id="logo">
-                <picture><img src="assets/img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"></picture>
+                <picture><img src="img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"
+                th:src="@{/img/WatchClockLogo_Farbe_g.svg}"></picture>
             </div>
         </div>
         <div class="table-responsive" style="margin: 0 auto;width: 900px;margin-top: 5%;text-align: center;">
-            <table class="table">
-                <thead style="color: rgb(255,255,255);font-family: Signika, sans-serif;font-weight: bold;background: #10555c;border-color: rgb(255,255,255);">
+            <table>
+                <thead style="color: rgb(255,255,255); font-family: Signika, sans-serif; font-weight: bold; background: #10555c; border-color: rgb(255,255,255);">
                     <tr>
-                        <th class="head_round">Personalnummer</th>
+                        <th style="head_round">Personalnummer</th>
                         <th class="head_round">Vorname</th>
                         <th class="head_round">Nachname</th>
                         <th class="head_round">Email</th>
@@ -61,8 +64,6 @@
             </table>
         </div>
     </section>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 
 </html>
