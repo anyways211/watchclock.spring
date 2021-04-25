@@ -25,4 +25,11 @@ public class TestController {
         modelView.addObject("user", user.getVorname());
         return modelView;
     }
+
+    @GetMapping(value= {"/startZeiteintrag"})
+    public ModelAndView startZeiteintrag(){
+        ModelAndView modelView = new ModelAndView();
+        modelView.setViewName("startZeiteintrag");
+        return modelView;
+    }
 }
