@@ -15,19 +15,19 @@ public class TestController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/allUsers")
+    @GetMapping("/userUebersicht")
     public ModelAndView start(){
         ModelAndView modelView = new ModelAndView();
-        List<User> users = userRepository.findAll();
-        modelView.setViewName("Test2");
-        modelView.addObject("users", users);
+        //List<User> users = userRepository.findAll();
+        modelView.setViewName("userUebersicht");
+        //modelView.addObject("users", users);
         return modelView;
     }
 
-    @GetMapping("/test2")
+    @GetMapping("/zeitUebersicht")
     public ModelAndView startTest2(){
         ModelAndView modelView = new ModelAndView();
-        modelView.setViewName("UserOverview");
+        modelView.setViewName("zeitUebersicht");
         return modelView;
     }
 
@@ -37,8 +37,6 @@ public class TestController {
         //modelView.addObject("user", new User());
         modelView.setViewName("Login");
         //handle user inputs
-
-
         return modelView;
     }
 
