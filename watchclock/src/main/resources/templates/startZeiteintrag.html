@@ -14,7 +14,7 @@
 <body>
 <style>
     body {
-        font-family: "Signika";
+        font-family: Signika, sans-serif;
         background-image: url("content/images/BG.png");
         background-repeat: no-repeat;
         background-position: initial;
@@ -32,6 +32,7 @@
         background-color: #6c757d;
         border-width: 0px;
     }
+
     .button-stop-activated {
         background-color: #e9665c;
     }
@@ -49,6 +50,7 @@
         background-color: #10555c;
         border-width: 0px;
     }
+
     .button-start-deactivated {
         background-color: #6c757d;
     }
@@ -75,6 +77,23 @@
         color: #fff;
         background-color: #79c0b2;
         border-color: #79c0b2;
+    }
+
+    .display-none {
+        display: none;
+    }
+
+    .input-kommentar {
+        text-align: left;
+        border-radius: 50px;
+        width: 50%;
+        height: 60px;
+        background: rgb(255, 255, 255);
+        color: rgb(16, 85, 92);
+        font-size: 35px;
+        font-family: Signika, sans-serif;
+        font-weight: normal;
+        border: 5px solid rgb(180, 180, 180);
     }
 
 
@@ -104,10 +123,12 @@
         <button id="button-stop" disabled="true" type="button" class="button-stop btn btn-lg">Stop
         </button>
     </div>
-    <div class="control" align="center" style="
+    <div id="div-kommentar" class="control" align="center" style="
     margin-top: 150px;
 ">
-        <button type="button" class="btn btn-primary btn-lg button-zeiten">Zeiten bearbeiten
+        <input id="kommentar" type="text" class="input-kommentar display-none" value="Kommentar" onfocus="if (this.value=='Kommentar') this.value='';"/>
+
+        <button id="button-zeiten" type="button" class="btn btn-lg button-zeiten">Zeiten bearbeiten
         </button>
 
     </div>
@@ -129,11 +150,15 @@
 <script> $("button#button-start").click(function () {
     $(this).prop('disabled', true).toggleClass("button-start-deactivated");
     $("button#button-stop").prop('disabled', false).toggleClass("button-stop-activated");
+    $("button#button-zeiten").toggleClass("display-none");
+    $("input#kommentar").removeClass("display-none");
 });
 
 $("button#button-stop").click(function () {
     $(this).prop('disabled', true).removeClass("button-stop-activated");
     $("button#button-start").prop('disabled', false).removeClass("button-start-deactivated");
+    $("button#button-zeiten").removeClass("display-none");
+    $("input#kommentar").toggleClass("display-none");
 });
 </script>
 
