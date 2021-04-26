@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>WatchClock</title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Signika:300,400,500,700">
+    <link rel="stylesheet" href="/css/Footer-Basic.css">
+    <link rel="stylesheet" href="/css/generalStyles.css">
+</head>
+
+<body>
+    <section id="start" style="/*width: 100%;*//*height: 100vh;*/">
+        <div id="start_head">
+            <nav class="navbar navbar-light navbar-expand-md">
+                <div class="container-fluid"><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="navbar-nav ml-auto" style="text-align: right;font-size: 20px;color: rgb(16, 85, 92);">
+                            <li class="nav-item"><a class="nav-link active" href="#" style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);font-weight: normal;">Start</a></li>
+                            <li class="nav-item" style="text-align: right;"><a class="nav-link" href="#" style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);">Profil</a></li>
+                            <li class="nav-item" style="text-align: right;"><a class="nav-link" href="#" style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="text-center" id="logo">
+                <picture><img src="../../../../../../../Desktop/HWR/WI_401_Client_Server_Anwend/WatchClock_Material/Frontend/assets/img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"></picture>
+            </div>
+        </div>
+        <div class="table-responsive" style="margin: 0 auto;width: 85%;margin-top: 5%;text-align: center;">
+            <table class="table">
+                <thead style="color: rgb(255,255,255);font-family: Signika, sans-serif;font-weight: bold;background: #10555c;border-color: rgb(255,255,255);">
+                    <tr>
+                        <th class="head_round">Personalnummer</th>
+                        <th class="head_round">Vorname</th>
+                        <th class="head_round">Nachname</th>
+                        <th class="head_round">Email</th>
+                        <th class="head_round">Sollarbeitszeit</th>
+                        <th class="head_round">Ist Admin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="cell_round">
+                            <div class="form-group d-table-cell" style="width: 70px;"><input type="text" class="cell_text" placeholder="Nummer" name="nummer"></div>
+                        </td>
+                        <td class="cell_round">
+                            <div class="form-group d-table-cell" style="width: 90px;"><input type="text" class="cell_text" placeholder="Vorname" name="vorname"></div>
+                        </td>
+                        <td class="cell_round">
+                            <div class="form-group d-table-cell" style="width: 90px;"><input type="text" class="cell_text" placeholder="Nachname" name="nachname"></div>
+                        </td>
+                        <td class="cell_round"><input type="email" class="cell_text" placeholder="Mail" name="email"></td>
+                        <td class="cell_round">
+                            <div class="form-group d-table-cell" style="width: 90px;"><input type="text" class="cell_text" name="soll" placeholder="Sollarbeit"></div>
+                        </td>
+                        <td class="cell_round">true</td>
+                        <td><button class="btn btn-primary" id="save" type="button" style="font-family: Signika, sans-serif;font-weight: normal;font-size: 14px;background: rgb(16,85,92);width: 50px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-check" style="width: 20px;height: 20px;">
+                                    <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"></path>
+                                </svg></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="footer-basic" style="background: rgba(255,255,255,0);margin-top: 7%;margin-bottom: 0;padding-bottom: 0;padding-top: 60px;">
+            <ul class="list-inline">
+                <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a></li>
+                <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"></li>
+                <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">About</a></li>
+                <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Impressum</a></li>
+                <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#">Privacy Policy</a></li>
+            </ul>
+            <p class="copyright" style="font-family: Signika, sans-serif;color: rgb(180,180,180);">WatchClock © 2021</p>
+        </footer>
+    </section>
+    <script src="../../../../../../../Desktop/HWR/WI_401_Client_Server_Anwend/WatchClock_Material/Frontend/assets/js/jquery.min.js"></script>
+    <script src="../../../../../../../Desktop/HWR/WI_401_Client_Server_Anwend/WatchClock_Material/Frontend/assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
