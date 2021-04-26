@@ -27,7 +27,6 @@ public class LoginController {
         ModelAndView modelView = new ModelAndView();
         modelView.addObject("loginView", new LoginView());
         modelView.setViewName("Login");
-        //handle user inputs
         return modelView;
     }
 
@@ -37,6 +36,7 @@ public class LoginController {
 
         ModelAndView modelView = new ModelAndView();
 
+        //ist Email eine Email?
         if (bindingResult.hasErrors()) {
             modelView.setViewName("Login");
             loginView.setError(true);
@@ -45,14 +45,17 @@ public class LoginController {
             return modelView;
         } else {
             List<User> users = userRepository.findByEmail(loginView.getEmail());
+            //gibt es die Email-Adresse in DB?
             if (users.isEmpty()) {
                 modelView.setViewName("Login");
                 loginView.setError(true);
                 loginView.setErrormsg("Kein Konto mit dieser Email!");
                 modelView.addObject("loginView", loginView);
             } else {
+                //stimmt das Passwort?
                 User user = users.get(0);
                 if (loginView.getPasswort().equals(user.getPasswort())) {
+                    //redirect auf Startseite
                     StartView startView = new StartView();
                     startView.setUser(user);
                     modelView.setViewName("startZeiteintrag");
