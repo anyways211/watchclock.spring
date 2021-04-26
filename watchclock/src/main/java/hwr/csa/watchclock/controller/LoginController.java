@@ -1,43 +1,25 @@
 package hwr.csa.watchclock.controller;
 
-import com.sun.istack.NotNull;
 import hwr.csa.watchclock.modell.User;
 import hwr.csa.watchclock.modell.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Map;
-
 
 @Controller
-public class TestController {
+public class LoginController {
+
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/userUebersicht")
-    public ModelAndView start(){
-        ModelAndView modelView = new ModelAndView();
-        //List<User> users = userRepository.findAll();
-        modelView.setViewName("userUebersicht");
-        //modelView.addObject("users", users);
-        return modelView;
-    }
-
-    @GetMapping("/zeitUebersicht")
-    public ModelAndView startTest2(){
-        ModelAndView modelView = new ModelAndView();
-        modelView.setViewName("zeitUebersicht");
-        return modelView;
-    }
-
-    @GetMapping("/login")
+    @GetMapping("login")
     public ModelAndView startLogin(){
         ModelAndView modelView = new ModelAndView();
         modelView.addObject("error", false);
@@ -48,7 +30,7 @@ public class TestController {
     }
 
     @Validated
-    @PostMapping("/login")
+    @PostMapping("login")
     public ModelAndView Login(@Valid @ModelAttribute("user") User user, BindingResult bindingResult){
         if(bindingResult.hasErrors()) {
             ModelAndView modelView = new ModelAndView();
@@ -69,15 +51,6 @@ public class TestController {
                 return modelView;
             }
         }
-
-
-
     }
 
-    @GetMapping(value= {"/startZeiteintrag"})
-    public ModelAndView startZeiteintrag(){
-        ModelAndView modelView = new ModelAndView();
-        modelView.setViewName("startZeiteintrag");
-        return modelView;
-    }
 }
