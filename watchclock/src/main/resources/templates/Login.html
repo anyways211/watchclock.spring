@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -72,9 +72,7 @@
 </head>
 <body>
 <div class="divposition">
-    <div class="diverror" th:if="${error}">
-        Email und Passwort stimmen nicht überein!
-    </div>
+
     <form action="#" th:action="@{/login}" th:object="${user}" method="POST">
         <table border="0">
             <tr>
@@ -90,6 +88,10 @@
             </tr>
             <tr>
                 <td><p class="alert alert-danger" th:if="${#fields.hasErrors('passwort')}" th:errors="*{passwort}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td><p class="alert alert-danger" th:if="${error}">Email und Passwort stimmen nicht überein!</p>
                 </td>
             </tr>
             <tr>
