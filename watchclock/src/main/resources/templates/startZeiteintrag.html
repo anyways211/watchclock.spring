@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <!--Bootstrap CSS-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Signika:wght@300;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<style>
+  body {
+    font-family: Signika, sans-serif;
+    background-image: url("/img/BG.png");
+    background-repeat: no-repeat;
+    background-position: initial;
+    background-size: cover;
+  }
+
+  .button-stop {
+    font-size: 5rem;
+    line-height: 1.5;
+    border-radius: 5rem;
+    font-weight: bold;
+    padding-right: 61px;
+    padding-left: 61px;
+    color: #fff;
+    background-color: #6c757d;
+    border-width: 0px;
+  }
+
+  .button-stop-activated {
+    background-color: #e9665c;
+  }
+
+  .button-start {
+    font-weight: bold;
+    font-size: 5rem;
+    line-height: 1.5;
+    border-radius: 5rem;
+    margin-left: 0px;
+    margin-right: 100px;
+    padding-right: 50px;
+    padding-left: 50px;
+    color: #fff;
+    background-color: #10555c;
+    border-width: 0px;
+  }
+
+  .button-start-deactivated {
+    background-color: #6c757d;
+  }
+
+  .button-logout {
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 1.5;
+    border-radius: 2rem;
+    padding-right: 50px;
+    padding-left: 50px;
+    color: #fff;
+    background-color: #10555c;
+    border-color: #10555c;
+  }
+
+  .button-zeiten {
+    font-weight: lighter;
+    font-size: 2.5rem;
+    line-height: 1.5;
+    border-radius: 3rem;
+    padding-right: 160px;
+    padding-left: 160px;
+    color: #fff;
+    background-color: #79c0b2;
+    border-color: #79c0b2;
+  }
+
+  .display-none {
+    display: none;
+  }
+
+  .input-kommentar {
+    text-align: left;
+    border-radius: 50px;
+    width: 50%;
+    height: 60px;
+    background: rgb(255, 255, 255);
+    color: rgb(16, 85, 92);
+    font-size: 35px;
+    font-family: Signika, sans-serif;
+    font-weight: normal;
+    border: 5px solid rgb(180, 180, 180);
+  }
+  a:hover {
+    color: #fff;
+  }
+
+</style>
+<div class="control" align="right" style="
+    margin-top: 10px;
+    position: absolute;
+    right: 2%;
+">
+  <a href="/logout" type="button" class="btn btn-lg button-logout active" role="button" aria-pressed="true">Logout
+  </a>
+</div>
+<div align="center">
+  <div>
+    <img src="/WatchClock_Bildmarke_Farbe.png" height="15%" width="15%"
+         alt="Bild kann nicht geladen werden" align="center" style="
+    margin-top: 70px;">
+  </div>
+
+
+  <div class="control" align="center" style="
+    margin-top: 150px;
+">
+    <button id="button-start" type="button" class="button-start btn btn-lg">Start
+    </button>
+
+    <button id="button-stop" disabled="true" type="button" class="button-stop btn btn-lg">Stop
+    </button>
+  </div>
+  <div id="div-kommentar" class="control" align="center" style="
+    margin-top: 150px;
+">
+    <input id="kommentar" type="text" class="input-kommentar display-none" value="Kommentar" onfocus="if (this.value=='Kommentar') this.value='';"/>
+
+    <a href="/zeiten" id="button-zeiten" type="button" class="btn btn-lg button-zeiten active" role="button" aria-pressed="true">Zeiten bearbeiten
+    </a>
+
+  </div>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+<script> $("button#button-start").click(function () {
+  $(this).prop('disabled', true).toggleClass("button-start-deactivated");
+  $("button#button-stop").prop('disabled', false).toggleClass("button-stop-activated");
+  $("a#button-zeiten").toggleClass("display-none");
+  $("input#kommentar").removeClass("display-none");
+});
+
+$("button#button-stop").click(function () {
+  $(this).prop('disabled', true).removeClass("button-stop-activated");
+  $("button#button-start").prop('disabled', false).removeClass("button-start-deactivated");
+  $("a#button-zeiten").removeClass("display-none");
+  $("input#kommentar").toggleClass("display-none");
+});
+</script>
+
+
+</body>
+</html>

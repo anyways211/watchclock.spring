@@ -1,4 +1,6 @@
 package hwr.csa.watchclock.modell;
+
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
@@ -6,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "user")
@@ -20,6 +25,8 @@ public class User {
     @Column(name = "nachname")
     private String nachname;
 
+    @NotEmpty(message = "Feld darf nicht leer sein!")
+    @Size(max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
     @Column(name = "email")
     private String email;
 
@@ -29,6 +36,8 @@ public class User {
     @Column(name = "sollArbeitszeit")
     private int sollArbeitszeit;
 
+    @NotEmpty(message = "Feld darf nicht leer sein!")
+    @Size(max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
     @Column(name = "passwort")
     private String passwort;
 
