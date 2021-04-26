@@ -8,6 +8,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/Footer-Basic.css">
+
     <!-- Signika Font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Signika:wght@400;700&display=swap" rel="stylesheet">
@@ -85,7 +89,8 @@
 
             </tr>
             <tr>
-                <td><p class="alert alert-danger" th:if="${#fields.hasErrors('passwort')}" th:errors="*{passwort}"></p></td>
+                <td><p class="alert alert-danger" th:if="${#fields.hasErrors('passwort')}" th:errors="*{passwort}"></p>
+                </td>
             </tr>
             <tr>
                 <td>
@@ -102,19 +107,18 @@
         </table>
     </form>
 </div>
-
-<!-- Optional JavaScript; choose one of the two! -->
-
-<!-- Option 1: Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
-
-<!-- Option 2: Separate Popper and Bootstrap JS -->
-<!--
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
--->
+<footer class="footer-basic" style="background: rgba(255,255,255,0);margin-top: 2%;margin-bottom: 0;padding-bottom: 0;padding-top: 3%;">
+    <ul class="list-inline">
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a></li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"></li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">About</a></li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Impressum</a></li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#">Privacy Policy</a></li>
+    </ul>
+    <p class="copyright" style="font-family: Signika, sans-serif;color: rgb(180,180,180);">WatchClock © 2021</p>
+</footer>
+<script src="/js/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>
