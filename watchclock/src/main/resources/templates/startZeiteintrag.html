@@ -95,7 +95,9 @@
         font-weight: normal;
         border: 5px solid rgb(180, 180, 180);
     }
-
+    a:hover {
+        color: #fff;
+    }
 
 </style>
 <div class="control" align="right" style="
@@ -103,8 +105,8 @@
     position: absolute;
     right: 2%;
 ">
-    <button type="button" class="btn btn-primary btn-lg button-logout">Logout
-    </button>
+    <a href="/logout" type="button" class="btn btn-lg button-logout active" role="button" aria-pressed="true">Logout
+    </a>
 </div>
 <div align="center">
     <div>
@@ -128,8 +130,8 @@
 ">
         <input id="kommentar" type="text" class="input-kommentar display-none" value="Kommentar" onfocus="if (this.value=='Kommentar') this.value='';"/>
 
-        <button id="button-zeiten" type="button" class="btn btn-lg button-zeiten">Zeiten bearbeiten
-        </button>
+        <a href="/zeiten" id="button-zeiten" type="button" class="btn btn-lg button-zeiten active" role="button" aria-pressed="true">Zeiten bearbeiten
+        </a>
 
     </div>
 
@@ -150,14 +152,14 @@
 <script> $("button#button-start").click(function () {
     $(this).prop('disabled', true).toggleClass("button-start-deactivated");
     $("button#button-stop").prop('disabled', false).toggleClass("button-stop-activated");
-    $("button#button-zeiten").toggleClass("display-none");
+    $("a#button-zeiten").toggleClass("display-none");
     $("input#kommentar").removeClass("display-none");
 });
 
 $("button#button-stop").click(function () {
     $(this).prop('disabled', true).removeClass("button-stop-activated");
     $("button#button-start").prop('disabled', false).removeClass("button-start-deactivated");
-    $("button#button-zeiten").removeClass("display-none");
+    $("a#button-zeiten").removeClass("display-none");
     $("input#kommentar").toggleClass("display-none");
 });
 </script>
