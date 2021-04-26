@@ -9,13 +9,12 @@
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
 
     <!-- CSS Files -->
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/generalstyles.css">
     <link rel="stylesheet" href="/css/Footer-Basic.css">
 
     <!-- Signika Font -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Signika:wght@400;700&display=swap" rel="stylesheet">
-
 
     <title>Login</title>
     <link rel="stylesheet" href="/css/Login.css">
@@ -26,69 +25,72 @@
         <div class="text-center" id="logo">
             <picture><img src="/img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"></picture>
         </div>
-    <section class="login-clean" style="background: rgba(241,247,252,0);padding-top: 3%;">
-    <form action="#" th:action="@{/login}" th:object="${loginView}" method="POST" style="background: rgba(255,255,255,0);">
-        <table border="0">
-            <tr>
-                <div class="form-group">
-                <td><input class="form-control" type="email" th:field="*{email}" placeholder="Email" style="border-radius: 15px;"/></td>
-                </div>
-            </tr>
-            <tr>
-                <div class="form-group">
-                <td><p class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p></td>
-                </div>
-            </tr>
-            <tr>
-                <div class="form-group">
-                <td><input class="form-control" type="password" th:field="*{passwort}" placeholder="Passwort" style="border-radius: 15px;"/></td>
-                </div>
-            </tr>
-            <tr>
-                <div class="form-group">
-                <td><p class="alert alert-danger" th:if="${#fields.hasErrors('passwort')}" th:errors="*{passwort}"></p>
-                </td>
-                </div>
-            </tr>
-            <tr>
-                <div class="form-group">
-               <td> <p class="alert alert-danger" th:if="${loginView.error}" th:text="${loginView.errormsg}"></p></td>
-                </div>
-            </tr>
-            <tr>
-                <td>
-                    <div class="form-group">
-                        <small class="text-muted ml-2">
-                            Passwort vergessen? Kontaktieren Sie hier die Administratoren: admin@watchclock.test
-                        </small>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td><button class="btn btn-primary btn-block" type="submit" style="background: rgb(16,85,92);font-family: Signika, sans-serif;font-weight: bold;border-radius: 15px;">Login</button></td>
-            </tr>
-        </table>
-    </form>
-    </section>
-</div>
-<footer class="footer-basic"
-        style="background: rgba(255,255,255,0);margin-top: 2%;margin-bottom: 0;padding-bottom: 0;padding-top: 3%;">
-    <ul class="list-inline">
-        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#"
-                                                                                                       style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a>
-        </li>
-        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"></li>
-        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#"
-                                                                                                       style="font-family: Signika, sans-serif;color: rgb(16,85,92);">About</a>
-        </li>
-        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#"
-                                                                                                       style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Impressum</a>
-        </li>
-        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#">Privacy
-            Policy</a></li>
-    </ul>
-    <p class="copyright" style="font-family: Signika, sans-serif;color: rgb(180,180,180);">WatchClock © 2021</p>
-</footer>
+            <section class="login-clean" style="background: rgba(241,247,252,0);padding-top: 3%;">
+                <form action="#" th:action="@{/login}" th:object="${loginView}" method="POST" style="background: rgba(255,255,255,0);">
+                    <table border="0">
+                        <tr>
+                            <div class="form-group">
+                            <td><input class="form-control" type="email" th:field="*{email}" placeholder="Email"
+                                       style="border-radius: 15px;"/></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="form-group">
+                            <td><p class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="form-group">
+                            <td><input class="form-control" type="password" th:field="*{passwort}" placeholder="Passwort"
+                                       style="border-radius: 15px;"/></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="form-group">
+                            <td><p class="alert alert-danger" th:if="${#fields.hasErrors('passwort')}" th:errors="*{passwort}"></p>
+                            </td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="form-group">
+                           <td> <p class="alert alert-danger" th:if="${loginView.error}" th:text="${loginView.errormsg}"></p></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-group">
+                                    <small class="text-muted ml-2">
+                                        Passwort vergessen? Kontaktieren Sie hier die Administratoren: admin@watchclock.test
+                                    </small>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><button class="btn btn-primary btn-block" type="submit" style="background: rgb(16,85,92);
+                            font-family: Signika, sans-serif;font-weight: bold;border-radius: 15px;">Login</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </section>
+        </div>
+    <footer class="footer-basic"
+            style="background: rgba(255,255,255,0);margin-top: 2%;margin-bottom: 0;padding-bottom: 0;padding-top: 3%;">
+        <ul class="list-inline">
+            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#"
+               style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a>
+            </li>
+            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"></li>
+            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#"
+             style="font-family: Signika, sans-serif;color: rgb(16,85,92);">About</a>
+            </li>
+            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#"
+               style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Impressum</a>
+            </li>
+            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#">Privacy
+                Policy</a></li>
+        </ul>
+        <p class="copyright" style="font-family: Signika, sans-serif;color: rgb(180,180,180);">WatchClock © 2021</p>
+    </footer>
 </section>
 <script src="/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
