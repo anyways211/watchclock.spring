@@ -63,7 +63,7 @@
 <body>
 <div class="divposition">
 
-    <form action="#" th:action="@{/login}" th:object="${user}" method="POST">
+    <form action="#" th:action="@{/login}" th:object="${loginView}" method="POST">
         <table border="0">
             <tr>
                 <td><input class="inputs" type="email" th:field="*{email}" placeholder="Email"/></td>
@@ -79,6 +79,9 @@
             <tr>
                 <td><p class="alert alert-danger" th:if="${#fields.hasErrors('passwort')}" th:errors="*{passwort}"></p>
                 </td>
+            </tr>
+            <tr>
+               <td> <p class="alert alert-danger" th:if="${loginView.error}" th:text="${loginView.errormsg}"></p></td>
             </tr>
             <tr>
                 <td></td>

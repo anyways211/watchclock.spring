@@ -15,4 +15,12 @@ public class UserUebersichtController {
         //modelView.addObject("users", users);
         return modelView;
     }
+    @GetMapping("/userAendern")
+    public ModelAndView aendern(){
+        ModelAndView modelView = new ModelAndView();
+        //List<User> users = userRepository.findAll();
+        modelView.setViewName("userAendern");
+        //modelView.addObject("users", users);
+        return modelView;
+    }
 }
