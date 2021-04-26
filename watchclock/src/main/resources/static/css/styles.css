@@ -17,12 +17,6 @@ body {
 }
 
 .cell_round {
-  border-style: solid;
-  border-color: rgb(16,85,92);
-  border-width: 2px;
-  border-radius: 10px;
-  /*border: 2px solid rgb(16,85,92);*/
-  /*border-radius: 20px;*/
   color: rgb(16,85,92);
   font-family: Signika, sans-serif;
   font-weight: normal;
@@ -31,11 +25,54 @@ body {
 
 .btn.btn-primary {
   width: 150px;
-  /*margin-right: 10%;*/
-  /*margin-top: 10%;*/
   color: rgb(255, 255, 255);
   font-family: Signika, sans-serif;
   font-weight: bold;
   border-radius: 50px;
 }
 
+.cell_bold {
+  color: rgb(16,85,92);
+  font-family: Signika, sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: left;
+}
+
+.cell_content {
+}
+
+.cell_content {
+  font-family: Signika, sans-serif;
+  font-weight: normal;
+  font-size: 18px;
+  color: rgb(16,85,92);
+  text-align: left;
+}
+
+.cell_bold {
+  color: rgb(16,85,92);
+  font-family: Signika, sans-serif;
+  font-weight: bold;
+  border-color: rgb(16,85,92);
+  font-size: 18px;
+  text-align: left;
+  width: 200px;
+}
+
+.cell_bold {
+  height: 45px;
+}
+
+.cell_content {
+  height: 45px;
+}
+
+.cell_round {
+  border: 2px solid rgb(16,85,92);
+  border-radius: 15px;
+  color: rgb(16,85,92);
+  font-family: Signika, sans-serif;
+  font-weight: normal;
+  text-align: center;
+}
