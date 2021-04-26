@@ -73,4 +73,11 @@ public class TestController {
 
 
     }
+
+    @GetMapping(value= {"/startZeiteintrag"})
+    public ModelAndView startZeiteintrag(){
+        ModelAndView modelView = new ModelAndView();
+        modelView.setViewName("startZeiteintrag");
+        return modelView;
+    }
 }
