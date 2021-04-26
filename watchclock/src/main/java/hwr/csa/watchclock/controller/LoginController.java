@@ -40,7 +40,7 @@ public class LoginController {
             if (user.getEmail().equals("abc@gmx.de") && user.getPasswort().equals("1234")) {
                 ModelAndView modelView = new ModelAndView();
                 modelView.addObject("user", new User());
-                modelView.setViewName("zeitUebersicht");
+                modelView.setViewName("startZeiteintrag");
                 return modelView;
 
             } else {

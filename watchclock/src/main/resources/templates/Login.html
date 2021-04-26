@@ -28,11 +28,6 @@
             font-family: 'Signika', sans-serif;
         }
 
-        .loginForm {
-
-
-        }
-
         .inputs {
             font-family: 'Signika', sans-serif;
             font-size: 50px;
@@ -62,11 +57,6 @@
             margin-left: 40rem;
         }
 
-        .diverror {
-            color: red;
-            font-size: 35px;
-        }
-
     </style>
 
 </head>
@@ -91,8 +81,7 @@
                 </td>
             </tr>
             <tr>
-                <td><p class="alert alert-danger" th:if="${error}">Email und Passwort stimmen nicht überein!</p>
-                </td>
+                <td></td>
             </tr>
             <tr>
                 <td>
@@ -109,13 +98,21 @@
         </table>
     </form>
 </div>
-<footer class="footer-basic" style="background: rgba(255,255,255,0);margin-top: 2%;margin-bottom: 0;padding-bottom: 0;padding-top: 3%;">
+<footer class="footer-basic"
+        style="background: rgba(255,255,255,0);margin-top: 2%;margin-bottom: 0;padding-bottom: 0;padding-top: 3%;">
     <ul class="list-inline">
-        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a></li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#"
+                                                                                                       style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a>
+        </li>
         <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"></li>
-        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">About</a></li>
-        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Impressum</a></li>
-        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#">Privacy Policy</a></li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#"
+                                                                                                       style="font-family: Signika, sans-serif;color: rgb(16,85,92);">About</a>
+        </li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#"
+                                                                                                       style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Impressum</a>
+        </li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#">Privacy
+            Policy</a></li>
     </ul>
     <p class="copyright" style="font-family: Signika, sans-serif;color: rgb(180,180,180);">WatchClock © 2021</p>
 </footer>
