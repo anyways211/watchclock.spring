@@ -23,60 +23,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 public class LoginController {
-    @Autowired
-    private SecurityUserDetailsService userDetailsManager;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/login")
-    public ModelAndView login(HttpServletRequest request, HttpSession session) {
-        ModelAndView modelView = new ModelAndView();
-        modelView.addObject("loginView", new LoginView());
-        modelView.setViewName("Login");
-
-        session.setAttribute(
-                "error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION")
-        );
-
-        return modelView;
-    }
-
-    private String getErrorMessage(HttpServletRequest request, String key) {
-        Exception exception = (Exception) request.getSession().getAttribute(key);
-        String error = "";
-        if (exception instanceof BadCredentialsException) {
-            error = "Invalid username and password!";
-        } else if (exception instanceof LockedException) {
-            error = exception.getMessage();
-        } else {
-            error = "Invalid username and password!";
-        }
-        return error;
-    }
-  /* @GetMapping("login")
+   @GetMapping("/")
     public ModelAndView startLogin(){
         ModelAndView modelView = new ModelAndView();
         modelView.addObject("loginView", new LoginView());
         modelView.setViewName("Login");
         return modelView;
-    }*/
+    }
 
     @Validated
     @PostMapping("login")
     public ModelAndView Login(HttpServletRequest request, @Valid @ModelAttribute("loginView") LoginView loginView, BindingResult bindingResult) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+       // BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         ModelAndView modelView = new ModelAndView();
-        List<User> users = userRepository.findByEmail(loginView.getEmail());
+       /* List<User> users = userRepository.findByEmail(loginView.getEmail());
             //gibt es die Email-Adresse in DB?
             if (users.isEmpty()) {
                 modelView.setViewName("Login");
@@ -101,7 +71,7 @@ public class LoginController {
                     loginView.setErrormsg("Falsche Email oder falsches Passwort!");
                     modelView.addObject("loginView", loginView);
                 }
-            }
+            }*/
             return modelView;
         }
     }

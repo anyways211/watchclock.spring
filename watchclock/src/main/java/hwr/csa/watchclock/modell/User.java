@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -48,6 +48,9 @@ public class User implements UserDetails {
 
     @Column (name = "istAdmin")
     private boolean istAdmin;
+
+    @Column (name = "isEnabled")
+    private boolean isEnabled;
 
     @OneToMany
     private List<Zeiteintrag> zeiteintraege;
@@ -90,11 +93,6 @@ public class User implements UserDetails {
         return this.password;
     }
 
-    @Override
-    public String getUsername() {
-        return this.getVorname() +' '+ this.getNachname();
-    }
-
     public void setPassword(String passwort) {
         this.password = passwort;
     }
@@ -102,6 +100,8 @@ public class User implements UserDetails {
     public String getEmail() {
         return this.email;
     }
+
+    public String getUsername (){return this.email;}
 
     public void setEmail(String email) {
         this.email = email;
@@ -135,28 +135,12 @@ public class User implements UserDetails {
         this.zeiteintraege = zeiteintraege;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(() -> "read");
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
     public boolean isEnabled() {
-        return false;
+        return isEnabled;
     }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
 }

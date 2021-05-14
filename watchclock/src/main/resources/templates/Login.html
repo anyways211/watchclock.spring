@@ -44,6 +44,9 @@
                             <div class="form-group">
                            <td> <p class="alert alert-danger" th:if="${loginView.error}" th:text="${loginView.errormsg}"></p></td>
                             </div>
+                            <div align="center" th:if="${param.error}">
+                               <p style="font-size: 20; color: #FF1C19;">User Name or Password invalid, please verify</p>
+                            </div>
                         </tr>
                         <tr>
                             <td>
