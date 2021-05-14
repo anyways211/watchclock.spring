@@ -1,8 +1,12 @@
 package hwr.csa.watchclock.modell;
 
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +18,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long personalNr;
@@ -39,7 +44,7 @@ public class User {
     @NotEmpty(message = "Feld darf nicht leer sein!")
     @Size(max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
     @Column(name = "passwort")
-    private String passwort;
+    private String password;
 
     @Column (name = "istAdmin")
     private boolean istAdmin;
@@ -52,13 +57,14 @@ public class User {
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
-        this.passwort = passwort;
+        this.password = passwort;
         this.sollArbeitszeit = sollArbeitszeit;
         this.istAdmin = istAdmin;
     }
 
     public User() {
     }
+
 
     public String getVorname() {
         return this.vorname;
@@ -80,12 +86,17 @@ public class User {
         this.nachname = nachname;
     }
 
-    public String getPasswort() {
-        return this.passwort;
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setPasswort(String passwort) {
-        this.passwort = passwort;
+    @Override
+    public String getUsername() {
+        return this.getVorname() +' '+ this.getNachname();
+    }
+
+    public void setPassword(String passwort) {
+        this.password = passwort;
     }
 
     public String getEmail() {
@@ -122,5 +133,30 @@ public class User {
 
     public void setUsers(List<Zeiteintrag> zeiteintraege) {
         this.zeiteintraege = zeiteintraege;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(() -> "read");
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

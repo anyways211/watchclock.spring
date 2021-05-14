@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/css/Login.css">
 
 </head>
-<body>
+<body  style="background: url('/img/BG.png') center / cover no-repeat;">
     <section id="start" style="/*width: 100%;*//*height: 100vh;*/">
         <div class="text-center" id="logo">
             <picture><img src="/img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"></picture>
@@ -36,19 +36,8 @@
                         </tr>
                         <tr>
                             <div class="form-group">
-                            <td><p class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p></td>
-                            </div>
-                        </tr>
-                        <tr>
-                            <div class="form-group">
-                            <td><input class="form-control" type="password" th:field="*{passwort}" placeholder="Passwort"
+                            <td><input class="form-control" type="password" th:field="*{password}" placeholder="Passwort"
                                        style="border-radius: 15px;"/></td>
-                            </div>
-                        </tr>
-                        <tr>
-                            <div class="form-group">
-                            <td><p class="alert alert-danger" th:if="${#fields.hasErrors('passwort')}" th:errors="*{passwort}"></p>
-                            </td>
                             </div>
                         </tr>
                         <tr>

@@ -1,7 +1,7 @@
 package hwr.csa.watchclock.view;
 
 public class LoginView {
-    private String passwort;
+    private String password;
     private String email;
     private boolean error;
     private String errormsg;
@@ -10,12 +10,12 @@ public class LoginView {
         this.error = false;
     }
 
-    public String getPasswort() {
-        return passwort;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswort(String passwort) {
-        this.passwort = passwort;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
