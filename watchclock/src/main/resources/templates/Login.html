@@ -26,26 +26,23 @@
             <picture><img src="/img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"></picture>
         </div>
             <section class="login-clean" style="background: rgba(241,247,252,0);padding-top: 3%;">
-                <form action="#" th:action="@{/login}" th:object="${loginView}" method="POST" style="background: rgba(255,255,255,0);">
+                <form action="#" th:action="@{/login}" method="POST" style="background: rgba(255,255,255,0);">
                     <table border="0">
                         <tr>
                             <div class="form-group">
-                            <td><input class="form-control" type="email" th:field="*{email}" placeholder="Email"
+                            <td><input class="form-control"  type="test" id="username" placeholder="Nutzername"
                                        style="border-radius: 15px;"/></td>
                             </div>
                         </tr>
                         <tr>
                             <div class="form-group">
-                            <td><input class="form-control" type="password" th:field="*{password}" placeholder="Passwort"
+                            <td><input class="form-control" type="password" id="passwort" placeholder="Passwort"
                                        style="border-radius: 15px;"/></td>
                             </div>
                         </tr>
                         <tr>
-                            <div class="form-group">
-                           <td> <p class="alert alert-danger" th:if="${loginView.error}" th:text="${loginView.errormsg}"></p></td>
-                            </div>
                             <div align="center" th:if="${param.error}">
-                               <p style="font-size: 20; color: #FF1C19;">User Name or Password invalid, please verify</p>
+                               <p style="font-size: 20; color: #FF1C19;">Falscher Nutzername oder falsches Passwort</p>
                             </div>
                         </tr>
                         <tr>

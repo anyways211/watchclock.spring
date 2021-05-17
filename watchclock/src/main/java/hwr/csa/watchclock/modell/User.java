@@ -1,12 +1,7 @@
 package hwr.csa.watchclock.modell;
 
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +12,7 @@ import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -34,6 +29,9 @@ public class User {
     @Size(max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
     @Column(name = "email")
     private String email;
+
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "geburtsdatum")
     private Date geburtsdatum;
@@ -55,11 +53,12 @@ public class User {
     @OneToMany
     private List<Zeiteintrag> zeiteintraege;
 
-    public User(String vorname, String nachname, String email, int sollArbeitszeit,
+    public User(String vorname, String nachname, String email, String username, int sollArbeitszeit,
                 String passwort, boolean istAdmin) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
+        this.username = username;
         this.password = passwort;
         this.sollArbeitszeit = sollArbeitszeit;
         this.istAdmin = istAdmin;
@@ -67,7 +66,6 @@ public class User {
 
     public User() {
     }
-
 
     public String getVorname() {
         return this.vorname;
@@ -101,10 +99,14 @@ public class User {
         return this.email;
     }
 
-    public String getUsername (){return this.email;}
-
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername (){return this.username;}
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPersonalNr(Integer personalNr) {
@@ -142,5 +144,7 @@ public class User {
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
     }
+
+
 
 }
