@@ -2,19 +2,19 @@ package hwr.csa.watchclock.controller;
 
 import hwr.csa.watchclock.modell.User;
 import hwr.csa.watchclock.modell.UserRepository;
-import hwr.csa.watchclock.view.LoginView;
-import hwr.csa.watchclock.view.StartView;
+import hwr.csa.watchclock.security.MyUserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 
 @Controller
 public class LoginController {
@@ -22,53 +22,18 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("login")
-    public ModelAndView startLogin(){
-        ModelAndView modelView = new ModelAndView();
-        modelView.addObject("loginView", new LoginView());
-        modelView.setViewName("Login");
-        return modelView;
+    @GetMapping("/login")
+    public String startLogin(Model model){
+       return ("login");
     }
 
-    @Validated
-    @PostMapping("login")
-    public ModelAndView Login(@Valid @ModelAttribute("loginView") LoginView loginView, BindingResult bindingResult) {
-
-        ModelAndView modelView = new ModelAndView();
-
-        //ist Email eine Email?
-        if (bindingResult.hasErrors()) {
-            modelView.setViewName("Login");
-            loginView.setError(true);
-            loginView.setErrormsg("Falsche Eingabe!");
-            modelView.addObject("loginView", loginView);
-            return modelView;
-        } else {
-            List<User> users = userRepository.findByEmail(loginView.getEmail());
-            //gibt es die Email-Adresse in DB?
-            if (users.isEmpty()) {
-                modelView.setViewName("Login");
-                loginView.setError(true);
-                loginView.setErrormsg("Kein Konto mit dieser Email!");
-                modelView.addObject("loginView", loginView);
-            } else {
-                //stimmt das Passwort?
-                User user = users.get(0);
-                if (loginView.getPasswort().equals(user.getPasswort())) {
-                    //redirect auf Startseite
-                    StartView startView = new StartView();
-                    startView.setUser(user);
-                    modelView.setViewName("startZeiteintrag");
-                    modelView.addObject("startView", startView);
-                }
-                else {
-                    modelView.setViewName("Login");
-                    loginView.setError(true);
-                    loginView.setErrormsg("Falsches Passwort!");
-                    modelView.addObject("loginView", loginView);
-                }
-            }
-            return modelView;
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){
+            new SecurityContextLogoutHandler().logout(request, response, auth);
         }
+        return "redirect:/login?logout";
     }
 }
+

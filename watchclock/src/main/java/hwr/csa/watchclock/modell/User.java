@@ -1,9 +1,7 @@
 package hwr.csa.watchclock.modell;
 
-
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,10 +9,10 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long personalNr;
@@ -30,6 +28,9 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "username", unique = true)
+    private String username;
+
     @Column(name = "geburtsdatum")
     private Date geburtsdatum;
 
@@ -38,26 +39,29 @@ public class User {
 
     @NotEmpty(message = "Feld darf nicht leer sein!")
     @Size(max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
-    @Column(name = "passwort")
-    private String passwort;
+    @Column(name = "password")
+    private String password;
 
     @Column (name = "istAdmin")
     private boolean istAdmin;
 
-    @OneToMany
-    private List<Zeiteintrag> zeiteintraege;
-
-    public User(String vorname, String nachname, String email, int sollArbeitszeit,
-                String passwort, boolean istAdmin) {
+    public User(String vorname, String nachname, String email, String username, int sollArbeitszeit,
+                String password, boolean istAdmin) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
-        this.passwort = passwort;
+        this.username = username;
+        this.password = password;
         this.sollArbeitszeit = sollArbeitszeit;
         this.istAdmin = istAdmin;
     }
 
     public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public String getVorname() {
@@ -80,12 +84,12 @@ public class User {
         this.nachname = nachname;
     }
 
-    public String getPasswort() {
-        return this.passwort;
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setPasswort(String passwort) {
-        this.passwort = passwort;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -94,6 +98,12 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername (){return this.username;}
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPersonalNr(Integer personalNr) {
@@ -116,11 +126,4 @@ public class User {
         return istAdmin;
     }
 
-    public List<Zeiteintrag> getZeiteintraege() {
-        return zeiteintraege;
-    }
-
-    public void setUsers(List<Zeiteintrag> zeiteintraege) {
-        this.zeiteintraege = zeiteintraege;
-    }
 }

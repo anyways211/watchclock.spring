@@ -80,4 +80,35 @@ public class Zeiteintrag {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public int[] berechneSaldo(){
+        Timestamp von = this.von;
+        Timestamp bis = this.bis;
+        // wenn Start- und Endzeit gleich sind, ist das Saldo sowohl für Minuten als auch Stunden 0
+        if(von.equals(bis)) return new int[]{0,0} ;
+        // wenn Starttimestamp anch dem Endtimestamp ist, stimmt etwas nicht -> null zurückgeben
+        if(von.after(bis)) return null;
+        // Saldo per Differenz der Zeiten in Millisekunden berechnen
+        long saldoInMillisekunden = bis.getTime() - von.getTime();
+        // Differenz in Stunden umrechnen
+        double saldoInStunden = (double)saldoInMillisekunden / 3600000;
+        // Stunden gerundet in Zielarray eintragen
+        int stunden = (int) saldoInStunden;
+        int[] result= {stunden, 0};
+        // die übrigen Millisekunden in Minuten umrechnen
+        double difference = saldoInStunden - stunden;
+        double minuten = difference * 60;
+        // wenn übrige Minuten größer als halbe Miute sind weiter betrachgten, ansonsten einfach weglassen
+        if(minuten>=0.5) {
+            // wenn gerundete Minutenzahl 60 ist wird die Stundenzahl um eins erhöht, ansonsten wird gerundete Minuten zahl an zweiter Stelle des Zielarrays eingetragen
+            int minutenGerundet = (int) Math.round(minuten);
+            if(minutenGerundet==60) {
+                result[0]+=1;
+            }else {
+                result[1]=minutenGerundet;
+            }
+        }
+        return result;
+    }
+}
 }
