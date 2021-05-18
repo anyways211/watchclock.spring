@@ -2,14 +2,12 @@ package hwr.csa.watchclock.modell;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
 
 @Entity
 @Table(name = "users")
@@ -30,7 +28,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "geburtsdatum")
@@ -47,12 +45,6 @@ public class User {
     @Column (name = "istAdmin")
     private boolean istAdmin;
 
-    @Column (name = "isEnabled")
-    private boolean isEnabled;
-
-   /* @OneToMany
-    private List<Zeiteintrag> zeiteintraege;*/
-
     public User(String vorname, String nachname, String email, String username, int sollArbeitszeit,
                 String password, boolean istAdmin) {
         this.vorname = vorname;
@@ -65,6 +57,11 @@ public class User {
     }
 
     public User() {
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public String getVorname() {
@@ -129,19 +126,4 @@ public class User {
         return istAdmin;
     }
 
-   /* public List<Zeiteintrag> getZeiteintraege() {
-        return zeiteintraege;
-    }
-
-    public void setUsers(List<Zeiteintrag> zeiteintraege) {
-        this.zeiteintraege = zeiteintraege;
-    }
-*/
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
 }

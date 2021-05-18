@@ -26,7 +26,8 @@
             <picture><img src="/img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"></picture>
         </div>
             <section class="login-clean" style="background: rgba(241,247,252,0);padding-top: 3%;">
-                <form action="#" th:action="@{/login}" method="POST" style="background: rgba(255,255,255,0);">
+                <form name="f" th:action="@{/login}" method="POST" style="background: rgba(255,255,255,0);">
+                    <fieldset>
                     <table border="0">
                         <tr>
                             <div class="form-group" th:if="${param.error}">
@@ -34,14 +35,19 @@
                             </div>
                         </tr>
                         <tr>
+                        <div class="form-group" th:if="${param.logout}">
+                            <td>  <p class="text-muted ml-2">Sie wurden erfolgreich ausgeloggt!</p></td>
+                        </div>
+                        </tr>
+                        <tr>
                             <div class="form-group">
-                            <td><input class="form-control"  type="text" id="username" placeholder="Nutzername"
+                            <td><input class="form-control" name="username" type="text" id="username" placeholder="Nutzername"
                                        style="border-radius: 15px;"/></td>
                             </div>
                         </tr>
                         <tr>
                             <div class="form-group">
-                            <td><input class="form-control" type="password" id="password" placeholder="Passwort"
+                            <td><input class="form-control" name="password" type="password" id="password" placeholder="Passwort"
                                        style="border-radius: 15px;"/></td>
                             </div>
                         </tr>
@@ -60,6 +66,7 @@
                             font-family: Signika, sans-serif;font-weight: bold;border-radius: 15px;">Login</button></td>
                         </tr>
                     </table>
+                    </fieldset>
                 </form>
             </section>
         </div>

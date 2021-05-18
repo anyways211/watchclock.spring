@@ -7,10 +7,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class StartController {
 
-    @GetMapping(value= {"/startZeiteintrag"})
+    @GetMapping("/start")
     public ModelAndView startZeiteintrag(){
         ModelAndView modelView = new ModelAndView();
-        modelView.setViewName("startZeiteintrag");
+        modelView.setViewName("start");
         return modelView;
     }
 }
