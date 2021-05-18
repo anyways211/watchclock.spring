@@ -10,7 +10,7 @@ import java.util.Collection;
 public class MyUserPrincipal extends User implements UserDetails {
 
     protected MyUserPrincipal(User user){
-        super(user.getUsername(), user.getPassword());
+        super(user.getVorname(), user.getNachname(),user.getEmail(), user.getUsername(),user.getSollArbeitszeit(), user.getPassword(), user.isIstAdmin());
     }
 
     @Override
