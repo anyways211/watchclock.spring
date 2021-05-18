@@ -29,20 +29,20 @@
                 <form action="#" th:action="@{/login}" method="POST" style="background: rgba(255,255,255,0);">
                     <table border="0">
                         <tr>
+                            <div class="form-group" th:if="${param.error}">
+                                <td>  <p class="text-muted ml-2">Falscher Nutzername oder falsches Passwort</p></td>
+                            </div>
+                        </tr>
+                        <tr>
                             <div class="form-group">
-                            <td><input class="form-control"  type="test" id="username" placeholder="Nutzername"
+                            <td><input class="form-control"  type="text" id="username" placeholder="Nutzername"
                                        style="border-radius: 15px;"/></td>
                             </div>
                         </tr>
                         <tr>
                             <div class="form-group">
-                            <td><input class="form-control" type="password" id="passwort" placeholder="Passwort"
+                            <td><input class="form-control" type="password" id="password" placeholder="Passwort"
                                        style="border-radius: 15px;"/></td>
-                            </div>
-                        </tr>
-                        <tr>
-                            <div align="center" th:if="${param.error}">
-                               <p style="font-size: 20; color: #FF1C19;">Falscher Nutzername oder falsches Passwort</p>
                             </div>
                         </tr>
                         <tr>
@@ -54,6 +54,7 @@
                                 </div>
                             </td>
                         </tr>
+
                         <tr>
                             <td><button class="btn btn-primary btn-block" type="submit" style="background: rgb(16,85,92);
                             font-family: Signika, sans-serif;font-weight: bold;border-radius: 15px;">Login</button></td>

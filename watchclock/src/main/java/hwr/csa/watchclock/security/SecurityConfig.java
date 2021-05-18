@@ -14,21 +14,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
     @Autowired
-    private SecurityUserDetailsService userDetailsService;
-
-
+    private SecurityUserDetailsService securityUserDetailsService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService);
+                .userDetailsService(securityUserDetailsService);
     }
 
     @Override
@@ -41,11 +38,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/zeitUebersicht").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/userUebersicht").hasAnyAuthority("ADMIN")
                 .antMatchers("/userAendern").hasAuthority("ADMIN")
-                .and().formLogin()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .usernameParameter("username")
+                .passwordParameter("password")
                 .loginPage("/login")
+                .permitAll()
+                .and()
+                .logout()
                 .permitAll();
-
     }
+
+
 
     @Override
     public void configure(WebSecurity web) throws Exception {

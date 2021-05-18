@@ -41,7 +41,7 @@ public class User {
 
     @NotEmpty(message = "Feld darf nicht leer sein!")
     @Size(max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
-    @Column(name = "passwort")
+    @Column(name = "password")
     private String password;
 
     @Column (name = "istAdmin")
@@ -50,16 +50,16 @@ public class User {
     @Column (name = "isEnabled")
     private boolean isEnabled;
 
-    @OneToMany
-    private List<Zeiteintrag> zeiteintraege;
+   /* @OneToMany
+    private List<Zeiteintrag> zeiteintraege;*/
 
     public User(String vorname, String nachname, String email, String username, int sollArbeitszeit,
-                String passwort, boolean istAdmin) {
+                String password, boolean istAdmin) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
         this.username = username;
-        this.password = passwort;
+        this.password = password;
         this.sollArbeitszeit = sollArbeitszeit;
         this.istAdmin = istAdmin;
     }
@@ -91,8 +91,8 @@ public class User {
         return this.password;
     }
 
-    public void setPassword(String passwort) {
-        this.password = passwort;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -129,14 +129,14 @@ public class User {
         return istAdmin;
     }
 
-    public List<Zeiteintrag> getZeiteintraege() {
+   /* public List<Zeiteintrag> getZeiteintraege() {
         return zeiteintraege;
     }
 
     public void setUsers(List<Zeiteintrag> zeiteintraege) {
         this.zeiteintraege = zeiteintraege;
     }
-
+*/
     public boolean isEnabled() {
         return isEnabled;
     }
@@ -144,7 +144,4 @@ public class User {
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
     }
-
-
-
 }
