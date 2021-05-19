@@ -31,14 +31,14 @@ public class UserUebersichtController {
         return modelView;
     }
 
-    @GetMapping("/userAendern/{id}")
+    @GetMapping("userUebersicht/userAendern/{id}")
     public ModelAndView userAendern(){
         ModelAndView modelView = new ModelAndView();
         modelView.setViewName("userAendern");
         return modelView;
     }
 
-    @GetMapping("/userLoeschen/{personalNr}")
+    @GetMapping("userUebersich/userLoeschen/{personalNr}")
     public ModelAndView userLoeschen(@PathVariable("personalNr") long personalNr){
         ModelAndView modelView = new ModelAndView();
         UserUebersichtView view= new UserUebersichtView();

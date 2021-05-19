@@ -36,11 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/start").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers("/profil").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/zeitUebersicht").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/userUebersicht").hasAnyAuthority("ADMIN")
-                .antMatchers("/userAendern").hasAuthority("ADMIN")
+                .antMatchers("/start/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+                .antMatchers("/profil/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/zeitUebersicht/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+                .antMatchers("/userUebersicht/**").hasAnyAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").defaultSuccessUrl("/start", true).permitAll()
                 .and().logout().logoutUrl("/logout").permitAll();

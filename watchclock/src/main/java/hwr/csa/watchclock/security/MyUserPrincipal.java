@@ -3,26 +3,30 @@ package hwr.csa.watchclock.security;
 import hwr.csa.watchclock.modell.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class MyUserPrincipal extends User implements UserDetails {
 
     protected MyUserPrincipal(User user){
-        super(user.getVorname(), user.getNachname(),user.getEmail(), user.getUsername(),user.getSollArbeitszeit(), user.getPassword(), user.isIstAdmin());
+        super(user.getVorname(), user.getNachname(), user.getEmail(), user.getUsername(),user.getSollArbeitszeit(), user.getPassword(), user.isIstAdmin());
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
+        List<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
         if (super.isIstAdmin()) {
-            return AuthorityUtils.createAuthorityList("ADMIN");
+            list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
         else {
-            return AuthorityUtils.createAuthorityList("USER");
+            list.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
-
+        return list;
     }
 
     @Override
