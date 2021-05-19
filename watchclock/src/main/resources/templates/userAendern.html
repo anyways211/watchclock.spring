@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -38,27 +38,33 @@
                         <th class="head_round">Personalnummer</th>
                         <th class="head_round">Vorname</th>
                         <th class="head_round">Nachname</th>
+                        <th class="head_round">Username</th>
                         <th class="head_round">Email</th>
+                        <th class="head_round">Geburtsdatum</th>
                         <th class="head_round">Sollarbeitszeit</th>
-                        <th class="head_round">Ist Admin</th>
+                        <th class="head_round">Password</th>
+                        <th class="head_round">Ist Admin?</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td class="cell_round">
-                            <div class="form-group d-table-cell" style="width: 70px;"><input type="text" class="cell_text" placeholder="Nummer" name="nummer"></div>
+                            <div class="form-group d-table-cell" style="width: 70px;"><input th:placeholder="${view.user.personalNr}" type="text" class="cell_text"  name="nummer" readonly></div>
                         </td>
                         <td class="cell_round">
-                            <div class="form-group d-table-cell" style="width: 90px;"><input type="text" class="cell_text" placeholder="Vorname" name="vorname"></div>
+                            <div class="form-group d-table-cell" style="width: 90px;"><input th:placeholder="${view.user.vorname}" type="text" class="cell_text" placeholder="Vorname" name="vorname"></div>
                         </td>
                         <td class="cell_round">
-                            <div class="form-group d-table-cell" style="width: 90px;"><input type="text" class="cell_text" placeholder="Nachname" name="nachname"></div>
+                            <div class="form-group d-table-cell" style="width: 90px;"><input th:placeholder="${view.user.nachname}" type="text" class="cell_text" placeholder="Nachname" name="nachname"></div>
                         </td>
-                        <td class="cell_round"><input type="email" class="cell_text" placeholder="Mail" name="email"></td>
                         <td class="cell_round">
-                            <div class="form-group d-table-cell" style="width: 90px;"><input type="text" class="cell_text" name="soll" placeholder="Sollarbeit"></div>
+                            <div class="form-group d-table-cell" style="width: 90px;"><input th:placeholder="${view.user.username}" type="text" class="cell_text" placeholder="Nachname" name="nachname"></div>
                         </td>
-                        <td class="cell_round">true</td>
+                        <td class="cell_round"><input th:placeholder="${view.user.email}" type="email" class="cell_text" placeholder="Mail" name="email"></td>
+                        <td class="cell_round"><input th:placeholder="${view.user.geburtsdatum}" type="date" class="cell_text" placeholder="Geburtsdatum" name="geburtsdatum"></td>
+                        <td class="cell_round"><input type="password" class="cell_text" placeholder="Password" name="password"></td>
+                        <td class="cell_round"><input th:placeholder="${view.user.sollArbeitszeit}" type="text" class="cell_text" name="soll" placeholder="Sollarbeit"></td>
+                        <td class="cell_round"><input type="checkbox" th:checked="${view.user.istAdmin}" class="cell_text" name="admin" placeholder="Ist Admin?"/></td>
                         <td><button class="btn btn-primary" id="save" type="button" style="font-family: Signika, sans-serif;font-weight: normal;font-size: 14px;background: rgb(16,85,92);width: 50px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-check" style="width: 20px;height: 20px;">
                                     <path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z"></path>
                                 </svg></button></td>

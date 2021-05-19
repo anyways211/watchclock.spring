@@ -46,12 +46,13 @@ public class User {
     private boolean istAdmin;
 
     public User(String vorname, String nachname, String email, String username, int sollArbeitszeit,
-                String password, boolean istAdmin) {
+                String password, Date geburtsdatum, boolean istAdmin) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.geburtsdatum = geburtsdatum;
         this.sollArbeitszeit = sollArbeitszeit;
         this.istAdmin = istAdmin;
     }
@@ -62,6 +63,14 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public Date getGeburtsdatum() {
+        return geburtsdatum;
+    }
+
+    public void setGeburtsdatum(Date geburtsdatum) {
+        this.geburtsdatum = geburtsdatum;
     }
 
     public String getVorname() {
