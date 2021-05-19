@@ -111,4 +111,3 @@ public class Zeiteintrag {
         return result;
     }
 }
-}
