@@ -12,7 +12,7 @@ Create table users (
     password varchar(100) NOT NULL,
     ist_Admin boolean);
 
-Insert into users values (1, "Admin", "Admin", "watchclock", "admin", "2000-01-01", 40,"$2a$12$DlfnjD4YgCNbDEtgd/ITeOj.jmUZpuz1i4gt51YzetW/iKY2O3bqa", true);
+Insert into users values (1, "Admin", "Admin", "admin@watchclock.test", "admin", "2000-01-01", 40,"$2a$12$DlfnjD4YgCNbDEtgd/ITeOj.jmUZpuz1i4gt51YzetW/iKY2O3bqa", true);
 Insert into users values (2, "Juliane", "Ruß", "juliane.russ@gmx.de", "juliane.russ", "1998-01-21", 40,"$2a$12$DlfnjD4YgCNbDEtgd/ITeOj.jmUZpuz1i4gt51YzetW/iKY2O3bqa", false);
 
 
