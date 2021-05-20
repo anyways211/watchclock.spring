@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
+//Controller der HTTP-Mapping für UserÜbersicht und UserAndern übernimmt!
 @Controller
 public class UserUebersichtController {
     @Autowired
@@ -34,22 +35,23 @@ public class UserUebersichtController {
     public ModelAndView getUserAendern(@PathVariable("personalNr") long personalNr){
         UserAendernView userAendernView = new UserAendernView();
         ModelAndView modelView = new ModelAndView();
-        userAendernView.setUser(userRepository.findByPersonalNr(personalNr));
+        User user = userRepository.findByPersonalNr(personalNr);
         modelView.setViewName("userAendern");
-        modelView.addObject("view", userAendernView);
+        modelView.addObject("view", user);
         return modelView;
     }
 
     @PostMapping("userUebersicht/userAendern/{personalNr}")
-    public ModelAndView postUserAendern(@PathVariable("personalNr") long personalNr){
+    public ModelAndView postUserAendern(@PathVariable("personalNr") long personalNr, UserAendernView userAendernView){
         ModelAndView modelView = new ModelAndView();
-        UserAendernView userAendernView = new UserAendernView();
         userAendernView.setUser(userRepository.findByPersonalNr(personalNr));
         modelView.setViewName("userAendern");
         modelView.addObject("view", userAendernView);
         return modelView;
     }
 
+    //in Userübersicht ausgewählter User wird gelöscht, wenn er nicht der einzige Admin ist (es muss immer mind. 1 Admin in der DB vorhanden
+    //sein, sonst können keine neuen Nutzer eingefügt werden
     @GetMapping("userUebersich/userLoeschen/{personalNr}")
     public ModelAndView userLoeschen(@PathVariable("personalNr") long personalNr){
         ModelAndView modelView = new ModelAndView();

@@ -6,8 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "users")
@@ -25,6 +24,7 @@ public class User {
 
     @NotEmpty(message = "Feld darf nicht leer sein!")
     @Size(max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
+    @Email(message="Das Feld muss eine Email enthalten")
     @Column(name = "email")
     private String email;
 
@@ -34,11 +34,13 @@ public class User {
     @Column(name = "geburtsdatum")
     private Date geburtsdatum;
 
+    @NotNull
+    //@Size(max=40, message = "Feld darf nicht leer sein!")
     @Column(name = "sollArbeitszeit")
     private int sollArbeitszeit;
 
     @NotEmpty(message = "Feld darf nicht leer sein!")
-    @Size(max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
+    @Size(min=5, max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
     @Column(name = "password")
     private String password;
 
@@ -47,6 +49,18 @@ public class User {
 
     public User(String vorname, String nachname, String email, String username, int sollArbeitszeit,
                 String password, Date geburtsdatum, boolean istAdmin) {
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.geburtsdatum = geburtsdatum;
+        this.sollArbeitszeit = sollArbeitszeit;
+        this.istAdmin = istAdmin;
+    }
+    public User(long personalNr, String vorname, String nachname, String email, String username,
+                int sollArbeitszeit, String password, Date geburtsdatum, boolean istAdmin) {
+        this.personalNr = personalNr;
         this.vorname = vorname;
         this.nachname = nachname;
         this.email = email;
