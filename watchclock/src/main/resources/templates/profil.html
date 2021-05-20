@@ -34,25 +34,25 @@
         <div class="table-responsive" style="margin: 0 auto;width: 550px;margin-top: 5%;text-align: center;">
             <table class="table">
                 <tbody>
-                    <tr>
+                    <tr th:each="user : ${view.users}">
                         <td class="cell_bold">Name</td>
-                        <td class="cell_content">Maxi Muster</td>
+                        <td class="cell_content"><span th:text="${user.vorname + user.nachname}"> Name </span></td>
                     </tr>
                     <tr>
                         <td class="cell_bold">Personalnummer</td>
-                        <td class="cell_content">12345</td>
+                        <td class="cell_content"><span th:text="${user.personalNr}"> Personalnummer </span></td>
                     </tr>
                     <tr>
                         <td class="cell_bold">Geburtsdatum</td>
-                        <td class="cell_content">01.01.2000</td>
+                        <td class="cell_content"><span th:text="${user.geburtsdatum}"> Geburtsdatum </span></td>
                     </tr>
                     <tr>
                         <td class="cell_bold">Email</td>
-                        <td class="cell_content">beispiel@company.com</td>
+                        <td class="cell_content"><span th:text="${user.email}"> Email </span></td>
                     </tr>
                     <tr>
                         <td class="cell_bold">Wochenstunden</td>
-                        <td class="cell_content">40</td>
+                        <td class="cell_content"><span th:text="${user.sollArbeitszeit}"> SOllarbeitszeit </span></td>
                     </tr>
                     <tr>
                         <td class="cell_bold">Passwort</td>
