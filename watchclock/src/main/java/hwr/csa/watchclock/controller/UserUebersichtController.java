@@ -3,15 +3,14 @@ package hwr.csa.watchclock.controller;
 import hwr.csa.watchclock.modell.User;
 import hwr.csa.watchclock.modell.UserRepository;
 import hwr.csa.watchclock.services.UserService;
+import hwr.csa.watchclock.view.UserAendernView;
 import hwr.csa.watchclock.view.UserUebersichtView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -31,40 +30,52 @@ public class UserUebersichtController {
         return modelView;
     }
 
-    @GetMapping("userUebersicht/userAendern/{id}")
-    public ModelAndView userAendern(){
+    @GetMapping("userUebersicht/userAendern/{personalNr}")
+    public ModelAndView getUserAendern(@PathVariable("personalNr") long personalNr){
+        UserAendernView userAendernView = new UserAendernView();
         ModelAndView modelView = new ModelAndView();
+        userAendernView.setUser(userRepository.findByPersonalNr(personalNr));
         modelView.setViewName("userAendern");
+        modelView.addObject("view", userAendernView);
+        return modelView;
+    }
+
+    @PostMapping("userUebersicht/userAendern/{personalNr}")
+    public ModelAndView postUserAendern(@PathVariable("personalNr") long personalNr){
+        ModelAndView modelView = new ModelAndView();
+        UserAendernView userAendernView = new UserAendernView();
+        userAendernView.setUser(userRepository.findByPersonalNr(personalNr));
+        modelView.setViewName("userAendern");
+        modelView.addObject("view", userAendernView);
         return modelView;
     }
 
     @GetMapping("userUebersich/userLoeschen/{personalNr}")
     public ModelAndView userLoeschen(@PathVariable("personalNr") long personalNr){
         ModelAndView modelView = new ModelAndView();
-        UserUebersichtView view= new UserUebersichtView();
-
+        UserUebersichtView userUebersichtView= new UserUebersichtView();
         //richtige ID angekommen?
         User zuLoeschen = userRepository.findByPersonalNr(personalNr);
         if(isEmpty(zuLoeschen)) {
-            view.setError(true);
-            view.setErrormsg("Etwas ist schief gelaufen, der zu löschende User existiert nicht");
+            userUebersichtView.setError(true);
+            userUebersichtView.setErrormsg("Etwas ist schief gelaufen, der zu löschende User existiert nicht");
         }
         else{
            // User user = zuLoeschen.get();
             //verhindern das letzter Admin gelöscht wird
             if (zuLoeschen.isIstAdmin() && !userService.mehrAlsEinAdmin()) {
-                view.setError(true);
-                view.setErrormsg("Es muss mindestens ein Admin vorhanden sein!");
+                userUebersichtView.setError(true);
+                userUebersichtView.setErrormsg("Es muss mindestens ein Admin vorhanden sein!");
             }
             else{
                 userRepository.deleteByPersonalNr(personalNr);
-                view.setError(true);
-                view.setErrormsg(zuLoeschen.getUsername() + " wurde erfolgreich gelöscht!");
+                userUebersichtView.setError(true);
+                userUebersichtView.setErrormsg(zuLoeschen.getUsername() + " wurde erfolgreich gelöscht!");
             }
         }
-        view.setUsers(userRepository.findAll());
+        userUebersichtView.setUsers(userRepository.findAll());
         modelView.setViewName("userUebersicht");
-        modelView.addObject("view", view);
+        modelView.addObject("view", userUebersichtView);
         return modelView;
     }
 }
