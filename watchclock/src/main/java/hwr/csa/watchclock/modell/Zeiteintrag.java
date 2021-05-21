@@ -7,7 +7,7 @@ import java.sql.*;
 public class Zeiteintrag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long eintragNr;
+    private int eintragNr;
 
     @Column(name = "datum")
     private Date datum;
@@ -37,7 +37,7 @@ public class Zeiteintrag {
         this.user = user;
     }
 
-    public long getEintragNr() {
+    public int getEintragNr() {
         return eintragNr;
     }
 

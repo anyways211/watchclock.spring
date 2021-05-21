@@ -2,6 +2,14 @@ package hwr.csa.watchclock.modell;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface ZeiteintragRepository extends CrudRepository<User, Integer> {
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.util.List;
 
+public interface ZeiteintragRepository extends CrudRepository<Zeiteintrag, Integer> {
+    Zeiteintrag findByEintragNr(int eintragNr);
+    List<Zeiteintrag> findByBisAndUser(Timestamp bis, User user);
+
+    @Transactional
+    Zeiteintrag saveAndFlush(Zeiteintrag zeiteintrag);
 }

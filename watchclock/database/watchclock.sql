@@ -17,7 +17,7 @@ Insert into users values (2, "Juliane", "Ruß", "juliane.russ@gmx.de", "juliane.
 
 
 create table zeiteintrag(
-	eintragNr Int(6) auto_increment primary key,
+	eintrag_Nr Int(6) auto_increment primary key NOT NULL,
     datum date not null,
     von datetime,
     bis datetime,
