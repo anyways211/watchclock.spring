@@ -45,7 +45,7 @@
                 </thead>
                 <tbody>
                     <tr th:if="${view.getZeitEintraege().isEmpty()}">
-                        <td class="cell_round"> Keine Zeiteinträge vorhanden.</td>
+                        <td class="cell_round" colspan="3"> Keine Zeiteinträge vorhanden.</td>
                     </tr>
                     <tr th:each="zeiteintrag: ${view.getZeitEintraege()}">
                             <td class="cell_round" th:text="${zeiteintrag.datum}"></td>
