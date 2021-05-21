@@ -31,7 +31,6 @@ public class StartController {
     ZeiteintragRepository zeiteintragRepository;
     @Autowired
     ZeitStopService zeitStopService;
-
     @Autowired
     UserRepository userRepository;
 
@@ -50,8 +49,8 @@ public class StartController {
         // View erstellen und Objekte mitgeben
         ModelAndView modelView = new ModelAndView();
         StartView startView = new StartView();
+        startView.setIstStart(istStart);
         modelView.setViewName("start");
-        modelView.addObject("istStart", istStart);
         modelView.addObject("view", startView);
         return modelView;
     }
@@ -64,7 +63,7 @@ public class StartController {
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findByPersonalNr(principal.getPersonalNr());
         // neuen Zeiteintrag mit Startzeit erstellen und speichern in DB
-        Zeiteintrag neuerZeiteintrag = new Zeiteintrag(new Date(startZeit.getYear(),startZeit.getMonthValue(), startZeit.getDayOfMonth()), Timestamp.valueOf(startZeit), null, "", user);
+        Zeiteintrag neuerZeiteintrag = new Zeiteintrag(new Date(startZeit.getYear()-1900,startZeit.getMonthValue()-1, startZeit.getDayOfMonth()), Timestamp.valueOf(startZeit), null, "", user);
         zeiteintragRepository.saveAndFlush(neuerZeiteintrag);
         return "redirect:/start";
     }

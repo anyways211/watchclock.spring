@@ -41,16 +41,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="cell_round" style="border: 2px solid rgb(16,85,92);border-radius: 15px;color: rgb(16,85,92);font-family: Signika, sans-serif;font-weight: normal;text-align: center;">24.04.2021</td>
-                    <td class="cell_round">3:15</td>
-                    <td class="cell_round">Frontend bearbeiten</td>
-                </tr>
-                <tr>
-                    <td class="cell_round">25.04.2021</td>
-                    <td class="cell_round">1:47</td>
-                    <td class="cell_round">Frontend Anpassungen</td>
-                </tr>
+                    <tr th:if="${view.getZeitEintraege().isEmpty()}">
+                        <td class="cell_round"> Keine Zeiteinträge vorhanden.</td>
+                    </tr>
+                    <tr th:each="zeiteintrag: ${view.getZeitEintraege()}">
+                            <td class="cell_round" th:text="${zeiteintrag.datum}"></td>
+                            <td class="cell_round"><span th:text="${zeiteintrag.berechneSaldo()[0]}"></span> h <span th:text="${zeiteintrag.berechneSaldo()[1]}"></span> min</td>
+                            <td class="cell_round" th:text="${zeiteintrag.kommentar}"></td>
+                     </tr>
                 </tbody>
             </table>
         </div>

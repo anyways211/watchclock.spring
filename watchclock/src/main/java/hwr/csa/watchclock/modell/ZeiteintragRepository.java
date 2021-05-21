@@ -9,6 +9,7 @@ import java.util.List;
 public interface ZeiteintragRepository extends CrudRepository<Zeiteintrag, Integer> {
     Zeiteintrag findByEintragNr(int eintragNr);
     List<Zeiteintrag> findByBisAndUser(Timestamp bis, User user);
+    List<Zeiteintrag> findAllByUserOrderByBisDesc(User user);
 
     @Transactional
     Zeiteintrag saveAndFlush(Zeiteintrag zeiteintrag);

@@ -5,6 +5,15 @@ import hwr.csa.watchclock.modell.User;
 public class StartView {
     private User user;
     private String kommentar;
+    private boolean istStart;
+
+    public boolean isIstStart() {
+        return istStart;
+    }
+
+    public void setIstStart(boolean istStart) {
+        this.istStart = istStart;
+    }
 
     public User getUser() {
         return user;
