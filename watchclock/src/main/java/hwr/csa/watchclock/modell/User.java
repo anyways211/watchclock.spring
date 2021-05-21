@@ -149,4 +149,25 @@ public class User {
         return istAdmin;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (obj == null){ return false;}
+        if (obj == this) {return true;}
+        if (!obj.getClass().equals(getClass())){return false;}
+
+        User user = (User) obj;
+        if (this.getPersonalNr() == user.getPersonalNr() &&
+                this.getVorname().equals(user.getVorname()) &&
+                this.getNachname().equals(user.getNachname()) &&
+                this.getUsername().equals(user.getUsername()) &&
+                this.getPassword().equals(user.getPassword()) &&
+                this.getGeburtsdatum().equals(user.getGeburtsdatum()) &&
+                this.sollArbeitszeit == user.getSollArbeitszeit() && this.istAdmin == user.istAdmin){
+                    return true;
+                }
+        else {
+            return false;
+        }
+    }
+
 }

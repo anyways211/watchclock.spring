@@ -50,42 +50,31 @@ public class UserUebersichtController {
     public ModelAndView postUserAendern(@PathVariable("personalNr") long personalNr, UserAendernView userAendernView){
         ModelAndView modelView = new ModelAndView();
         User aktuell = userRepository.findByPersonalNr(personalNr);
-        User geändert = userAendernView.getUser();
-        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$!?%_.:,;'^&+*=])(?=\\S+$).{5,}";
+        User aenderung = userAendernView.getUser();
+        userAendernView.setError(false);
+        userAendernView.setErrormsg("");
+        userAendernView.setUser(null);
 
+        aktuell = userService.checkAenderungen(aktuell, aenderung);
+         userRepository.saveAndFlush(aktuell);
 
-        //wenn Feld gefüllt und anders als alter Wert, Feld in User ändern
-        if (!aktuell.getVorname().equals(geändert.getVorname()) && !isEmpty(geändert.getVorname())){
-            aktuell.setVorname(geändert.getVorname());
-        }
-        if (!aktuell.getNachname().equals(geändert.getNachname()) && !isEmpty(geändert.getNachname())){
-            aktuell.setNachname(geändert.getNachname());
-        }
-        if (!aktuell.getUsername().equals(geändert.getUsername()) && !isEmpty(geändert.getUsername())){
-            aktuell.setUsername(geändert.getUsername());
-        }
-        if (!aktuell.getEmail().equals(geändert.getEmail()) && !isEmpty(geändert.getEmail())){
-            aktuell.setEmail(geändert.getEmail());
-        }
-        if (!aktuell.getGeburtsdatum().equals(geändert.getGeburtsdatum()) && !isEmpty(geändert.getGeburtsdatum())){
-            aktuell.setGeburtsdatum(geändert.getGeburtsdatum());
-        }
-        if (aktuell.getSollArbeitszeit()!= geändert.getSollArbeitszeit() && !isEmpty(geändert.getSollArbeitszeit())){
-            aktuell.setSollArbeitszeit(geändert.getSollArbeitszeit());
-        }
-        if (passwordEncoder.matches(geändert.getPassword(), aktuell.getPassword())
-                && !isEmpty(geändert.getSollArbeitszeit()) && geändert.getPassword().matches(pattern)) {
-            aktuell.setPassword(passwordEncoder.encode(geändert.getPassword()));
-        }
-        if(aktuell.isIstAdmin()!=geändert.isIstAdmin()){
-            aktuell.setIstAdmin(geändert.isIstAdmin());
+         if (aktuell.isIstAdmin() != aenderung.isIstAdmin()){
+             userAendernView.setError(true);
+             userAendernView.setErrormsg("Es muss mindestens ein Admin vorhaden sein");
+         }
+
+        if (!passwordEncoder.matches(aenderung.getPassword(), aktuell.getPassword()) &&
+                !isEmpty(aenderung.getPassword())){
+
+            userAendernView.setError(true);
+            userAendernView.setErrormsg("Fehler beim Ändern des Passwortes. Kontrollieren Sie die Passwortvorgaben");
         }
 
-        userRepository.saveAndFlush(aktuell);
-
+        userAendernView.setUser(aktuell);
         modelView.setViewName("userAendern");
         modelView.addObject("view", userAendernView);
         return modelView;
+
     }
 
     //in Userübersicht ausgewählter User wird gelöscht, wenn er nicht der einzige Admin ist (es muss immer mind. 1 Admin in der DB vorhanden
