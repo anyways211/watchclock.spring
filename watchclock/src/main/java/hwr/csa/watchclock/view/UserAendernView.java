@@ -4,6 +4,7 @@ import hwr.csa.watchclock.modell.User;
 
 public class UserAendernView {
     private User user;
+    private User aenderungen;
     private boolean error;
     private String errormsg;
 
