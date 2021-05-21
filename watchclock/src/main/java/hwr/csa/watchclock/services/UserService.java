@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.apache.logging.log4j.util.Strings.isBlank;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 @Service
@@ -40,29 +41,29 @@ public class UserService {
         String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$!?%_.:,;'^&+*=])(?=\\S+$).{5,}";
 
         //wenn Feld gefüllt und anders als alter Wert, Feld in User ändern
-        if (!aktuell.getVorname().equals(aenderung.getVorname()) && !isEmpty(aenderung.getVorname())){
+        if (!aktuell.getVorname().equals(aenderung.getVorname()) && !isBlank(aenderung.getVorname())){
             aktuell.setVorname(aenderung.getVorname());
         }
-        if (!aktuell.getNachname().equals(aenderung.getNachname()) && !isEmpty(aenderung.getNachname())){
+        if (!aktuell.getNachname().equals(aenderung.getNachname()) && !isBlank(aenderung.getNachname())){
             aktuell.setNachname(aenderung.getNachname());
         }
-        if (!aktuell.getUsername().equals(aenderung.getUsername()) && !isEmpty(aenderung.getUsername())){
+        if (!aktuell.getUsername().equals(aenderung.getUsername()) && !isBlank(aenderung.getUsername())){
            //wenn es den Usernamen nicht schon einmal gibt
             if (!usernameDoppelt(aenderung.getUsername())) {
                aktuell.setUsername(aenderung.getUsername());
            }
         }
-        if (!aktuell.getEmail().equals(aenderung.getEmail()) && !isEmpty(aenderung.getEmail())){
+        if (!aktuell.getEmail().equals(aenderung.getEmail()) && !isBlank(aenderung.getEmail())){
             aktuell.setEmail(aenderung.getEmail());
         }
         if (!aktuell.getGeburtsdatum().equals(aenderung.getGeburtsdatum()) && !isEmpty(aenderung.getGeburtsdatum())){
             aktuell.setGeburtsdatum(aenderung.getGeburtsdatum());
         }
-        if (aktuell.getSollArbeitszeit()!= aenderung.getSollArbeitszeit() && !isEmpty(aenderung.getSollArbeitszeit())){
+        if (aktuell.getSollArbeitszeit()!= aenderung.getSollArbeitszeit() && aenderung.getSollArbeitszeit() != 0){
             aktuell.setSollArbeitszeit(aenderung.getSollArbeitszeit());
         }
         if (!passwordEncoder.matches(aenderung.getPassword(), aktuell.getPassword())
-                && !isEmpty(aenderung.getSollArbeitszeit()) && aenderung.getPassword().matches(pattern)) {
+                && !(isBlank(aenderung.getPassword()) && aenderung.getPassword().matches(pattern))) {
             aktuell.setPassword(passwordEncoder.encode(aenderung.getPassword()));
         }
         if(aktuell.isIstAdmin()!=aenderung.isIstAdmin()){
@@ -98,6 +99,17 @@ public class UserService {
         } else {
             return false;
         }
+    }
+
+    public boolean leereFelder(User user){
+        if(!isBlank(user.getVorname()) && !isBlank(user.getNachname()) && !isBlank(user.getUsername())
+                && !isBlank(user.getEmail()) && !isBlank(user.getPassword()) && !isEmpty(user.getGeburtsdatum())
+            && user.getSollArbeitszeit()!=0){
+            return false;
+        }else{
+            return  true;
+        }
 
     }
+
 }

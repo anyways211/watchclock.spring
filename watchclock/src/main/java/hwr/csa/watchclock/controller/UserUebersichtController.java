@@ -5,6 +5,7 @@ import hwr.csa.watchclock.modell.UserRepository;
 import hwr.csa.watchclock.services.UserService;
 import hwr.csa.watchclock.view.UserAendernView;
 import hwr.csa.watchclock.view.UserUebersichtView;
+import hwr.csa.watchclock.view.UserZufuegenView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.springframework.util.ObjectUtils.isEmpty;
 
-//Controller der HTTP-Mapping für UserÜbersicht und UserAndern übernimmt!
+//Controller der HTTP-Mapping für UserÜbersicht, UserZufuegen und UserAndern übernimmt!
 @Controller
 public class UserUebersichtController {
     @Autowired
@@ -77,7 +82,7 @@ public class UserUebersichtController {
 
     //in Userübersicht ausgewählter User wird gelöscht, wenn er nicht der einzige Admin ist (es muss immer mind. 1 Admin in der DB vorhanden
     //sein, sonst können keine neuen Nutzer eingefügt werden
-    @GetMapping("userUebersich/userLoeschen/{personalNr}")
+    @GetMapping("userUebersicht/userLoeschen/{personalNr}")
     public ModelAndView userLoeschen(@PathVariable("personalNr") long personalNr){
         ModelAndView modelView = new ModelAndView();
         UserUebersichtView userUebersichtView= new UserUebersichtView();
@@ -96,13 +101,54 @@ public class UserUebersichtController {
             }
             else{
                 userRepository.deleteByPersonalNr(personalNr);
-                userUebersichtView.setError(true);
-                userUebersichtView.setErrormsg(zuLoeschen.getUsername() + " wurde erfolgreich gelöscht!");
             }
         }
         userUebersichtView.setUsers(userRepository.findAll());
         modelView.setViewName("userUebersicht");
         modelView.addObject("view", userUebersichtView);
         return modelView;
+    }
+
+    @GetMapping("userUebersicht/userZufuegen")
+    public ModelAndView GetUserZufuegen(){
+        UserZufuegenView userZufuegenView = new UserZufuegenView();
+        ModelAndView modelView = new ModelAndView();
+        modelView.setViewName("userZufuegen");
+        modelView.addObject("view", userZufuegenView);
+        return modelView;
+
+    }
+    @PostMapping("userUebersicht/userZufuegen")
+    public ModelAndView PostUserZufuegen(UserZufuegenView userZufuegenView){
+        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$!?%_.:,;'^&+*=])(?=\\S+$).{5,}";
+
+        try{
+            User user = userZufuegenView.getUser();
+            if(userService.leereFelder(user)){
+                userZufuegenView.setError(true);
+                userZufuegenView.setErrormsg("Bitte füllen Sie alle Felder aus");
+            }
+            else{
+                if (user.getPassword().matches(pattern)){
+                    user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    userRepository.saveAndFlush(user);
+                }
+                else {
+                    userZufuegenView.setError(true);
+                    userZufuegenView.setErrormsg("Prüfen Sie die Passwortrichtlinien");
+                }
+            }
+
+
+        } catch (Exception e){
+            userZufuegenView.setError(true);
+            userZufuegenView.setErrormsg("Bitte kontrollieren Sie ihre Eingaben! (Geburtsdatum bitte in folgendem Format angeben: yyyy-MM-dd)");
+        }
+
+        ModelAndView modelView = new ModelAndView();
+        modelView.setViewName("userZufuegen");
+        modelView.addObject("view", userZufuegenView);
+        return modelView;
+
     }
 }
