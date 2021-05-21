@@ -16,6 +16,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     @Transactional
     void deleteByPersonalNr(long personalNr);
+
     User saveAndFlush(User user);
 }
 
