@@ -63,8 +63,6 @@ public class ProfilController {
             user.setPassword(passwordEncoder.encode(passwortAendernView.getNeuesPasswort()));
             userRepository.saveAndFlush(user);
 
-            passwortAendernView.setError(true);
-            passwortAendernView.setErrormsg("Geändert!");
             passwortAendernView.setAltesPasswort("");
             passwortAendernView.setNeuesPasswort("");
             passwortAendernView.setNeuesPasswortW("");
