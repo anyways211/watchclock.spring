@@ -25,12 +25,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    //Festlegen, welche Klasse die Kontrolle von Passwort und Nutzername übernimmt
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userDetailsService);
     }
 
+    //Schutz für Seiten aufbauen, Rechte je nach Rolle (in MyUserPrincipal entschieden) vergeben
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -46,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
+    //Impressum-,Fehler-,Aboutseite und alle CSS-/Bilddateien von Schutz ausnehmen
     @Override
     public void configure(WebSecurity web) throws Exception {
         web

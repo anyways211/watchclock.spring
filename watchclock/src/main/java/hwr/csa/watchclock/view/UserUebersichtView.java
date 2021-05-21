@@ -3,7 +3,7 @@ package hwr.csa.watchclock.view;
 import hwr.csa.watchclock.modell.User;
 
 import java.util.List;
-
+//Felder die auf UserUebersicht.html angezeigt werden
 public class UserUebersichtView {
     private List<User> users;
     private boolean error;

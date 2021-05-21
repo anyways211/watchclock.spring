@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-
+//Diese Klasse übernimmt das Prüfen von Username und Passwort in Spring Security
 @Service
 public class SecurityUserDetailsService implements UserDetailsService {
     @Autowired

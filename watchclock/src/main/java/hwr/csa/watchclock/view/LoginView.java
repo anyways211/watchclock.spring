@@ -1,5 +1,6 @@
 package hwr.csa.watchclock.view;
 
+//Felder die auf Login.html angezeigt werden
 public class LoginView {
     private String password;
     private String email;

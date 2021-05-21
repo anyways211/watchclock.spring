@@ -1,5 +1,6 @@
 package hwr.csa.watchclock.view;
 
+//Felder die auf PasswortAendern.html angezeigt werden
 public class PasswortAendernView {
 
     private String altesPasswort;

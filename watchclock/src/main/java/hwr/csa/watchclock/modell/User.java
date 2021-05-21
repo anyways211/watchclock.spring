@@ -6,8 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.*;
 
+
+//Entität User mit allen Attributen + Getter & Setter
 @Entity
 @Table(name = "users")
 public class User {

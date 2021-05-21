@@ -6,6 +6,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ImpressumController {
+
+    //Controller, der Anzeige der Impressumsseite übernimmt
     @GetMapping("/impressum")
     public ModelAndView impressum(){
         ModelAndView modelView = new ModelAndView();

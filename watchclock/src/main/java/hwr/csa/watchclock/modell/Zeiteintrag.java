@@ -3,6 +3,7 @@ package hwr.csa.watchclock.modell;
 import javax.persistence.*;
 import java.sql.*;
 
+//Entität Zeiteintrag mit allen Attributen + Getter & Setter
 @Entity
 public class Zeiteintrag {
     @Id

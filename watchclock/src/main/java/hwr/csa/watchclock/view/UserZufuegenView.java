@@ -2,6 +2,7 @@ package hwr.csa.watchclock.view;
 
 import hwr.csa.watchclock.modell.User;
 
+//Felder die auf UserZufuegen.html angezeigt werden
 public class UserZufuegenView {
     private User user;
     private boolean error;

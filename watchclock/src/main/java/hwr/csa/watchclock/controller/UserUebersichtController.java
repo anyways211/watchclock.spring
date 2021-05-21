@@ -30,6 +30,7 @@ public class UserUebersichtController {
     @Autowired
     UserService userService;
 
+    //Controller der UserUebersicht anzeigt
     @GetMapping("/userUebersicht")
     public ModelAndView start(ModelAndView modelView){
         UserUebersichtView view= new UserUebersichtView();
@@ -39,6 +40,7 @@ public class UserUebersichtController {
         return modelView;
     }
 
+    //Controller der UserAendern mit aktuellen Daten des ausgewählten Users anzeigt
     @GetMapping("userUebersicht/userAendern/{personalNr}")
     public ModelAndView getUserAendern(@PathVariable("personalNr") long personalNr){
         UserAendernView userAendernView = new UserAendernView();
@@ -49,6 +51,7 @@ public class UserUebersichtController {
         return modelView;
     }
 
+    //Controller der Änderungen von UserAendern annimmt, validiert und User ändert
     @PostMapping("userUebersicht/userAendern/{personalNr}")
     public ModelAndView postUserAendern(@PathVariable("personalNr") long personalNr, UserAendernView userAendernView){
         ModelAndView modelView = new ModelAndView();
@@ -58,14 +61,17 @@ public class UserUebersichtController {
         userAendernView.setErrormsg("");
         userAendernView.setUser(null);
 
+        //gab es korrekte Aenderungen, dann diese in User aktuell schreiben
         aktuell = userService.checkAenderungen(aktuell, aenderung);
+        //korrekte Änderungen in DB speichern
          userRepository.saveAndFlush(aktuell);
 
+        //wurde bei Validierung festgestellt, das dem letzten Admin seine rechte entzogen werden sollen?
          if (aktuell.isIstAdmin() != aenderung.isIstAdmin()){
              userAendernView.setError(true);
              userAendernView.setErrormsg("Es muss mindestens ein Admin vorhanden sein");
          }
-
+        //wurde bei Validierung festgestellt, dass das Passwort nicht den Anforderungen entspricht
         if (!passwordEncoder.matches(aenderung.getPassword(), aktuell.getPassword()) &&
                 !isEmpty(aenderung.getPassword())){
 
@@ -109,6 +115,7 @@ public class UserUebersichtController {
         return modelView;
     }
 
+    //Controller der userZufuegen anzeigt
     @GetMapping("userUebersicht/userZufuegen")
     public ModelAndView GetUserZufuegen(){
         UserZufuegenView userZufuegenView = new UserZufuegenView();
@@ -118,19 +125,25 @@ public class UserUebersichtController {
         return modelView;
 
     }
+
+    //Controller der eingaben validiert und neuen User speichert
     @PostMapping("userUebersicht/userZufuegen")
     public ModelAndView PostUserZufuegen(UserZufuegenView userZufuegenView){
         String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$!?%_.:,;'^&+*=])(?=\\S+$).{5,}";
 
         try{
             User user = userZufuegenView.getUser();
+            //sind alle Felder gefüllt?
             if(userService.leereFelder(user)){
                 userZufuegenView.setError(true);
                 userZufuegenView.setErrormsg("Bitte füllen Sie alle Felder aus");
             }
             else{
+                //entspricht Passwort den Richtlinien
                 if (user.getPassword().matches(pattern)){
+                    //passwort codieren
                     user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    //neuen User speichern
                     userRepository.saveAndFlush(user);
                 }
                 else {

@@ -11,6 +11,7 @@ import java.util.List;
 import static org.apache.logging.log4j.util.Strings.isBlank;
 import static org.springframework.util.ObjectUtils.isEmpty;
 
+//Service der Prüfungen und Funktionalitäten für UserUebersicht/** enthält
 @Service
 public class UserService {
     @Autowired
