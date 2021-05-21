@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+//Service der validierungen und Berechnungen beim Zeit stoppen übernimmt
 @Service
 public class ZeitStopService {
     @Autowired

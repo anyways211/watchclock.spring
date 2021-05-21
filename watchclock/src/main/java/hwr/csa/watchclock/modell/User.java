@@ -6,8 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.*;
 
+
+//Entität User mit allen Attributen + Getter & Setter
 @Entity
 @Table(name = "users")
 public class User {
@@ -22,9 +23,6 @@ public class User {
     @Column(name = "nachname")
     private String nachname;
 
-    @NotEmpty(message = "Feld darf nicht leer sein!")
-    @Size(max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
-    @Email(message="Das Feld muss eine Email enthalten")
     @Column(name = "email")
     private String email;
 
@@ -34,13 +32,9 @@ public class User {
     @Column(name = "geburtsdatum")
     private Date geburtsdatum;
 
-    @NotNull
-    //@Size(max=40, message = "Feld darf nicht leer sein!")
     @Column(name = "sollArbeitszeit")
     private int sollArbeitszeit;
 
-    @NotEmpty(message = "Feld darf nicht leer sein!")
-    @Size(min=5, max=255, message = "Die maximale Zeichenlänge von 255 wurde überschritten!")
     @Column(name = "password")
     private String password;
 
@@ -169,5 +163,6 @@ public class User {
             return false;
         }
     }
+
 
 }

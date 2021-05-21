@@ -22,11 +22,13 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
+    //Controller der Loginseite Zeigt (eigentliches Login passiert über Package:Security)
     @GetMapping("/login")
     public String startLogin(Model model){
        return ("login");
     }
 
+    //Controller der aktuellen User entfernt und berechtigungen wieder zurück setzt
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

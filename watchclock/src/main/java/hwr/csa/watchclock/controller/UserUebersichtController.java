@@ -5,6 +5,7 @@ import hwr.csa.watchclock.modell.UserRepository;
 import hwr.csa.watchclock.services.UserService;
 import hwr.csa.watchclock.view.UserAendernView;
 import hwr.csa.watchclock.view.UserUebersichtView;
+import hwr.csa.watchclock.view.UserZufuegenView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import static org.springframework.util.ObjectUtils.isEmpty;
 
-//Controller der HTTP-Mapping für UserÜbersicht und UserAndern übernimmt!
+//Controller der HTTP-Mapping für UserÜbersicht, UserZufuegen und UserAndern übernimmt!
 @Controller
 public class UserUebersichtController {
     @Autowired
@@ -25,6 +30,7 @@ public class UserUebersichtController {
     @Autowired
     UserService userService;
 
+    //Controller der UserUebersicht anzeigt
     @GetMapping("/userUebersicht")
     public ModelAndView start(ModelAndView modelView){
         UserUebersichtView view= new UserUebersichtView();
@@ -34,6 +40,7 @@ public class UserUebersichtController {
         return modelView;
     }
 
+    //Controller der UserAendern mit aktuellen Daten des ausgewählten Users anzeigt
     @GetMapping("userUebersicht/userAendern/{personalNr}")
     public ModelAndView getUserAendern(@PathVariable("personalNr") long personalNr){
         UserAendernView userAendernView = new UserAendernView();
@@ -44,6 +51,7 @@ public class UserUebersichtController {
         return modelView;
     }
 
+    //Controller der Änderungen von UserAendern annimmt, validiert und User ändert
     @PostMapping("userUebersicht/userAendern/{personalNr}")
     public ModelAndView postUserAendern(@PathVariable("personalNr") long personalNr, UserAendernView userAendernView){
         ModelAndView modelView = new ModelAndView();
@@ -53,14 +61,17 @@ public class UserUebersichtController {
         userAendernView.setErrormsg("");
         userAendernView.setUser(null);
 
+        //gab es korrekte Aenderungen, dann diese in User aktuell schreiben
         aktuell = userService.checkAenderungen(aktuell, aenderung);
+        //korrekte Änderungen in DB speichern
          userRepository.saveAndFlush(aktuell);
 
+        //wurde bei Validierung festgestellt, das dem letzten Admin seine rechte entzogen werden sollen?
          if (aktuell.isIstAdmin() != aenderung.isIstAdmin()){
              userAendernView.setError(true);
              userAendernView.setErrormsg("Es muss mindestens ein Admin vorhanden sein");
          }
-
+        //wurde bei Validierung festgestellt, dass das Passwort nicht den Anforderungen entspricht
         if (!passwordEncoder.matches(aenderung.getPassword(), aktuell.getPassword()) &&
                 !isEmpty(aenderung.getPassword())){
 
@@ -77,7 +88,7 @@ public class UserUebersichtController {
 
     //in Userübersicht ausgewählter User wird gelöscht, wenn er nicht der einzige Admin ist (es muss immer mind. 1 Admin in der DB vorhanden
     //sein, sonst können keine neuen Nutzer eingefügt werden
-    @GetMapping("userUebersich/userLoeschen/{personalNr}")
+    @GetMapping("userUebersicht/userLoeschen/{personalNr}")
     public ModelAndView userLoeschen(@PathVariable("personalNr") long personalNr){
         ModelAndView modelView = new ModelAndView();
         UserUebersichtView userUebersichtView= new UserUebersichtView();
@@ -96,13 +107,61 @@ public class UserUebersichtController {
             }
             else{
                 userRepository.deleteByPersonalNr(personalNr);
-                userUebersichtView.setError(true);
-                userUebersichtView.setErrormsg(zuLoeschen.getUsername() + " wurde erfolgreich gelöscht!");
             }
         }
         userUebersichtView.setUsers(userRepository.findAll());
         modelView.setViewName("userUebersicht");
         modelView.addObject("view", userUebersichtView);
         return modelView;
+    }
+
+    //Controller der userZufuegen anzeigt
+    @GetMapping("userUebersicht/userZufuegen")
+    public ModelAndView GetUserZufuegen(){
+        UserZufuegenView userZufuegenView = new UserZufuegenView();
+        ModelAndView modelView = new ModelAndView();
+        modelView.setViewName("userZufuegen");
+        modelView.addObject("view", userZufuegenView);
+        return modelView;
+
+    }
+
+    //Controller der eingaben validiert und neuen User speichert
+    @PostMapping("userUebersicht/userZufuegen")
+    public ModelAndView PostUserZufuegen(UserZufuegenView userZufuegenView){
+        String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$!?%_.:,;'^&+*=])(?=\\S+$).{5,}";
+
+        try{
+            User user = userZufuegenView.getUser();
+            //sind alle Felder gefüllt?
+            if(userService.leereFelder(user)){
+                userZufuegenView.setError(true);
+                userZufuegenView.setErrormsg("Bitte füllen Sie alle Felder aus");
+            }
+            else{
+                //entspricht Passwort den Richtlinien
+                if (user.getPassword().matches(pattern)){
+                    //passwort codieren
+                    user.setPassword(passwordEncoder.encode(user.getPassword()));
+                    //neuen User speichern
+                    userRepository.saveAndFlush(user);
+                }
+                else {
+                    userZufuegenView.setError(true);
+                    userZufuegenView.setErrormsg("Prüfen Sie die Passwortrichtlinien");
+                }
+            }
+
+
+        } catch (Exception e){
+            userZufuegenView.setError(true);
+            userZufuegenView.setErrormsg("Bitte kontrollieren Sie ihre Eingaben! (Geburtsdatum bitte in folgendem Format angeben: yyyy-MM-dd)");
+        }
+
+        ModelAndView modelView = new ModelAndView();
+        modelView.setViewName("userZufuegen");
+        modelView.addObject("view", userZufuegenView);
+        return modelView;
+
     }
 }

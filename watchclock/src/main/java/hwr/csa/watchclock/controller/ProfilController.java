@@ -21,9 +21,10 @@ public class ProfilController {
 
     @Autowired
     UserRepository userRepository;
-
+    //Controller der Profildaten des aktuellen Nutzers anzeigt
     @GetMapping("/profil")
     public ModelAndView zeigeProfil(){
+        //aktueller Nutzer
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
 
@@ -34,6 +35,8 @@ public class ProfilController {
         modelView.setViewName("profil");
         return modelView;
     }
+
+    //Controller der PasswortAendern anzeigt
     @GetMapping("/profil/passwortAendern")
     public ModelAndView passwortAendern(){
         ModelAndView modelView = new ModelAndView();
@@ -42,7 +45,7 @@ public class ProfilController {
         modelView.addObject("view", passwortAendernView);
         return modelView;
     }
-
+    //Controller der Eingaben beim Passwortändern kontrolliert und Passwort ändert
     @PostMapping("/profil/passwortAendern")
     public ModelAndView postPasswortAendern(PasswortAendernView passwortAendernView){
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext()

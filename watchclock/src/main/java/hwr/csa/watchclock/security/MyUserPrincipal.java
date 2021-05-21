@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+//aktueller Nutzer
 public class MyUserPrincipal extends User implements UserDetails {
 
     protected MyUserPrincipal(User user){
@@ -18,6 +19,7 @@ public class MyUserPrincipal extends User implements UserDetails {
                 user.getGeburtsdatum(), user.isIstAdmin());
     }
 
+    //zuordnung der Rechte des jeweiligen Nutzers
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 

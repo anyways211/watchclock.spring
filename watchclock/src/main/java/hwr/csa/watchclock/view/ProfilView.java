@@ -2,6 +2,7 @@ package hwr.csa.watchclock.view;
 
 import hwr.csa.watchclock.modell.User;
 
+//Felder die auf profil.html angezeigt werden
 public class ProfilView {
     private User user;
 

@@ -4,7 +4,7 @@ import hwr.csa.watchclock.modell.User;
 import hwr.csa.watchclock.modell.Zeiteintrag;
 
 import java.util.List;
-
+//Felder die auf ZeitUebersicht.html angezeigt werden
 public class ZeitUebersichtView {
     private User user;
     private List<Zeiteintrag> zeitEintraege;

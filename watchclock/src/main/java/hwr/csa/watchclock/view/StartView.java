@@ -2,6 +2,7 @@ package hwr.csa.watchclock.view;
 
 import hwr.csa.watchclock.modell.User;
 
+//Felder die auf start.html angezeigt werden
 public class StartView {
     private User user;
     private String kommentar;
