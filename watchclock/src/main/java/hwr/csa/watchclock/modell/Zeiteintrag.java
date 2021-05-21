@@ -2,6 +2,8 @@ package hwr.csa.watchclock.modell;
 
 import javax.persistence.*;
 import java.sql.*;
+import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvBindByPosition;
 
 //Entität Zeiteintrag mit allen Attributen + Getter & Setter
 @Entity
