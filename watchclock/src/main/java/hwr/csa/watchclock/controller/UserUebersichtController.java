@@ -35,9 +35,9 @@ public class UserUebersichtController {
     public ModelAndView getUserAendern(@PathVariable("personalNr") long personalNr){
         UserAendernView userAendernView = new UserAendernView();
         ModelAndView modelView = new ModelAndView();
-        User user = userRepository.findByPersonalNr(personalNr);
+        userAendernView.setUser(userRepository.findByPersonalNr(personalNr));
         modelView.setViewName("userAendern");
-        modelView.addObject("view", user);
+        modelView.addObject("view", userAendernView);
         return modelView;
     }
 
@@ -45,6 +45,12 @@ public class UserUebersichtController {
     public ModelAndView postUserAendern(@PathVariable("personalNr") long personalNr, UserAendernView userAendernView){
         ModelAndView modelView = new ModelAndView();
         userAendernView.setUser(userRepository.findByPersonalNr(personalNr));
+
+        //wenn Feld gefüllt, Feld in User ändern
+
+
+
+
         modelView.setViewName("userAendern");
         modelView.addObject("view", userAendernView);
         return modelView;
