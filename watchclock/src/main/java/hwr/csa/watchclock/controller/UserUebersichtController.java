@@ -6,6 +6,7 @@ import hwr.csa.watchclock.services.UserService;
 import hwr.csa.watchclock.view.UserAendernView;
 import hwr.csa.watchclock.view.UserUebersichtView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,8 @@ import static org.springframework.util.ObjectUtils.isEmpty;
 //Controller der HTTP-Mapping für UserÜbersicht und UserAndern übernimmt!
 @Controller
 public class UserUebersichtController {
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -35,19 +38,41 @@ public class UserUebersichtController {
     public ModelAndView getUserAendern(@PathVariable("personalNr") long personalNr){
         UserAendernView userAendernView = new UserAendernView();
         ModelAndView modelView = new ModelAndView();
-        User user = userRepository.findByPersonalNr(personalNr);
+        userAendernView.setUser(userRepository.findByPersonalNr(personalNr));
         modelView.setViewName("userAendern");
-        modelView.addObject("view", user);
+        modelView.addObject("view", userAendernView);
         return modelView;
     }
 
     @PostMapping("userUebersicht/userAendern/{personalNr}")
     public ModelAndView postUserAendern(@PathVariable("personalNr") long personalNr, UserAendernView userAendernView){
         ModelAndView modelView = new ModelAndView();
-        userAendernView.setUser(userRepository.findByPersonalNr(personalNr));
+        User aktuell = userRepository.findByPersonalNr(personalNr);
+        User aenderung = userAendernView.getUser();
+        userAendernView.setError(false);
+        userAendernView.setErrormsg("");
+        userAendernView.setUser(null);
+
+        aktuell = userService.checkAenderungen(aktuell, aenderung);
+         userRepository.saveAndFlush(aktuell);
+
+         if (aktuell.isIstAdmin() != aenderung.isIstAdmin()){
+             userAendernView.setError(true);
+             userAendernView.setErrormsg("Es muss mindestens ein Admin vorhanden sein");
+         }
+
+        if (!passwordEncoder.matches(aenderung.getPassword(), aktuell.getPassword()) &&
+                !isEmpty(aenderung.getPassword())){
+
+            userAendernView.setError(true);
+            userAendernView.setErrormsg("Fehler beim Ändern des Passwortes. Kontrollieren Sie die Passwortvorgaben");
+        }
+
+        userAendernView.setUser(aktuell);
         modelView.setViewName("userAendern");
         modelView.addObject("view", userAendernView);
         return modelView;
+
     }
 
     //in Userübersicht ausgewählter User wird gelöscht, wenn er nicht der einzige Admin ist (es muss immer mind. 1 Admin in der DB vorhanden

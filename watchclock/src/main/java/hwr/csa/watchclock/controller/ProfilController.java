@@ -4,6 +4,7 @@ import hwr.csa.watchclock.modell.User;
 import hwr.csa.watchclock.modell.UserRepository;
 import hwr.csa.watchclock.security.MyUserPrincipal;
 import hwr.csa.watchclock.view.PasswortAendernView;
+import hwr.csa.watchclock.view.ProfilView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,8 +23,14 @@ public class ProfilController {
     UserRepository userRepository;
 
     @GetMapping("/profil")
-    public ModelAndView startZeiteintrag(){
+    public ModelAndView zeigeProfil(){
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+
+        ProfilView profilView = new ProfilView();
+        profilView.setUser(principal);
         ModelAndView modelView = new ModelAndView();
+        modelView.addObject("view", profilView);
         modelView.setViewName("profil");
         return modelView;
     }
@@ -38,7 +45,8 @@ public class ProfilController {
 
     @PostMapping("/profil/passwortAendern")
     public ModelAndView postPasswortAendern(PasswortAendernView passwortAendernView){
-        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext()
+                                        .getAuthentication().getPrincipal();
 
         //pattern --> passwort muss eine Zahl, einen kleinen & einen großen Buchstaben,
         //ein Sonderzeichen, kein Leerzeichen und mindestens 5 Zeichen enthalten
@@ -55,8 +63,6 @@ public class ProfilController {
             user.setPassword(passwordEncoder.encode(passwortAendernView.getNeuesPasswort()));
             userRepository.saveAndFlush(user);
 
-            passwortAendernView.setError(true);
-            passwortAendernView.setErrormsg("Geändert!");
             passwortAendernView.setAltesPasswort("");
             passwortAendernView.setNeuesPasswort("");
             passwortAendernView.setNeuesPasswortW("");

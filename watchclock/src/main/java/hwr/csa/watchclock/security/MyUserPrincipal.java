@@ -13,7 +13,9 @@ import java.util.List;
 public class MyUserPrincipal extends User implements UserDetails {
 
     protected MyUserPrincipal(User user){
-        super(user.getPersonalNr(), user.getVorname(), user.getNachname(), user.getEmail(), user.getUsername(),user.getSollArbeitszeit(), user.getPassword(),user.getGeburtsdatum(), user.isIstAdmin());
+        super(user.getPersonalNr(), user.getVorname(), user.getNachname(), user.getEmail(),
+                user.getUsername(),user.getSollArbeitszeit(), user.getPassword(),
+                user.getGeburtsdatum(), user.isIstAdmin());
     }
 
     @Override

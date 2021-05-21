@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>WatchClock</title>
-  <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Signika:300,400,500,700">
   <link rel="stylesheet" href="/css/Footer-Basic.css">
-  <link rel="stylesheet" href="/css/Login.css">
   <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
 </head>
 
 <body>
 <section id="start" style="/*width: 100%;*//*height: 100vh;*/">
   <div id="start_head">
     <nav class="navbar navbar-light navbar-expand-md">
-      <div class="container-fluid"><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+      <div class="container-fluid">
+        <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
+                class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1">
           <ul class="navbar-nav ml-auto" style="text-align: right;font-size: 20px;color: rgb(16, 85, 92);">
             <li class="nav-item"><a class="nav-link active" href="/start" style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);font-weight: normal;">Start</a></li>
@@ -29,23 +31,31 @@
       </div>
     </nav>
     <div class="text-center" id="logo">
-      <picture><img src="/img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"></picture>
-    </div>
-
-    <div class="text-center" id="start_stop" style="margin-top: 5%;">
-      <form th:action="@{/startZeiteintrag}" th:object="${view}" th:method="post">
-        <button th:unless="${istStart}"  class="btn btn-primary" type="submit" style="margin-right: 10px;width: 24%;color: rgb(255,255,255);font-family: Signika, sans-serif;font-weight: bold;background: rgb(16,85,92);border-radius: 50px;font-size: 35px;height: 100px;margin-left: 10px;margin-top: 10px;margin-bottom: 10px;">Start</button>
-        <button th:if="${istStart}"class="btn btn-primary" type="submit" style="margin-right: 10px;width: 24%;color: rgb(255,255,255);font-family: Signika, sans-serif;font-weight: bold;background: rgb(16,85,92);border-radius: 50px;font-size: 35px;height: 100px;margin-left: 10px;margin-top: 10px;margin-bottom: 10px;" disabled>Start</button>
-      </form>
-      <form th:action="@{/stopZeiteintrag}" th:object="${view}" th:method="post">
-        <button th:if="${istStart}" class="btn btn-primary" type="submit" style="background: rgb(233,102,92);border-radius: 50px;font-size: 35px;font-family: Signika, sans-serif;font-weight: bold;color: rgb(255,255,255);width: 24%;height: 100px;margin-right: 10px;margin-left: 10px;margin-top: 10px;margin-bottom: 10px;">Stop</button>
-        <button th:unless="${istStart}" class="btn btn-primary" type="submit" style="background: rgb(233,102,92);border-radius: 50px;font-size: 35px;font-family: Signika, sans-serif;font-weight: bold;color: rgb(255,255,255);width: 24%;height: 100px;margin-right: 10px;margin-left: 10px;margin-top: 10px;margin-bottom: 10px;" disabled>Stop</button>
-        <div style="text-align: center;"><input  name="kommentar" type="text" placeholder="Kommentar"  th:field="*{kommentar}"  style="text-align: left;border-radius: 50px;width: 50%;height: 60px;margin-top: 2%;background: rgb(255,255,255);color: rgb(16,85,92);font-size: 35px;font-family: Signika, sans-serif;font-weight: normal;border: 5px solid rgb(180,180,180);margin-bottom: 2%;"></div>
-      </form>
+      <picture><img src="/img/WatchClockLogo_Farbe_g.svg" width="12%" alt="WatchClock Logo"></picture>
     </div>
   </div>
+  <div class="overflow-auto"
+       style="max-width: 80%;font-family: Signika, sans-serif;margin-right: 10%;margin-left: 10%;height: 60%;">
+    <h2 class="text-center" style="text-align: left;margin-bottom: 3%;margin-top: -1%;">
+      <br><strong>About Us</strong></h2>
+    <p style="font-family: Signika, sans-serif;font-size: 14px;text-align: center;margin-top: -2%;"> <span style="text-decoration: underline;font-size: 21px;">
+      Was ist WatchClock</span><br>
+      WatchClock ist Dein zuverlässiges Tool, um Deine Projekte zu tracken. Denn jeder kennt es: in Zeiten vom HomeOffice oder <br>
+      Stress im Büro verliert man schnell mal die Übersicht darüber, was man eigentlich gemacht hat. Und vor allem: Wie lange! <br>
+      Wir von WatchClock haben das Problem erkannt und ein Tool entwickelt, mit dem Du oder Deine Firma individuell die Zeiten <br>
+      erfassen könnt.<br><br>
+      <span style="text-decoration: underline;font-size: 21px;">
+            Was kann WatchClock?</span><br>- Zeiterfassung für Freiberufler und Unternehmen<br>
+      - einfaches Tracken & Planen der Arbeitszeit<br>
+      - Kommentarfunktion für die einzelnen Zeitabschnitte<br>
+      - einfache Korrekturen möglich<br>
+      - als Webanwendung auf jedem Gerät erreichbar<br><br>
+      <span style="text-decoration: underline;font-size: 21px;">Wer sind die Köpfe dahinter?</span><br>
+      Wir von WatchClock – das sind Annika, Juliane, Jenny, Sabine und Tobi. Wir sind Studenten <br>
+      an der HWR Berlin und arbeiten mich Hochdruck daran, euren Arbeitsalltag entspannter und auch <br>
+      im Nachgang leichter nachvollziehbar zu machen.</p>
+  </div>
 </section>
-
 <footer class="text-center" style="color: rgb(16, 85, 92);background: #fff468;padding-bottom: 0px;margin-top: -3%;height: 80px;">
   <ul class="list-inline" style="padding-top: 10px;">
     <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="/start" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a></li>
@@ -57,6 +67,7 @@
 </footer>
 <script src="/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 </body>
+
 </html>

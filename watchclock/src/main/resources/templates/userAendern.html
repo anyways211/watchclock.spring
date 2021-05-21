@@ -32,69 +32,70 @@
             <picture><img src="/img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"></picture>
         </div>
     </div>
-    <form name="f" th:action="@{userUebersicht/userAendern/{personalNr} (personalNr = ${user.personalNr})}" method="POST" style="background: rgba(255,255,255,0);">
+    <form name="f" th:action="@{{personalNr} (personalNr = ${view.user.personalNr})}" th:object="${view.user}" method="POST" style="background: rgba(255,255,255,0);">
+
         <div class="table-responsive" style="margin: 0 auto; width: 550px; margin-top: 5%; text-align: center;">
         <table class="table">
             <tbody>
+            <tr class="text-muted ml-2" th:if="${view.error}" th:text="${view.errormsg}"></tr>
             <tr>
                 <td class="cell_bold">PersonalNr</td>
-                <td class="cell_content"><input th:placeholder="${view.user.personalNr}" type="text" class="cell_text"  name="nummer" readonly></td>
+                <td class="cell_content"><input th:placeholder="*{personalNr}" type="text" class="cell_text"  name="nummer" readonly></td>
             </tr>
             <tr>
                 <td class="cell_bold">Vorname</td>
                 <td class="cell_content">
-                    <input th:placeholder="${view.user.vorname}" type="text" class="cell_text" placeholder="Vorname" name="vorname">
+                    <input th:field="*{vorname}" type="text" class="cell_text" placeholder="Vorname" name="vorname">
 
                 </td>
             </tr>
             <tr>
                 <td class="cell_bold">Nachname</td>
-                <td class="cell_content"><input th:placeholder="${view.user.nachname}" type="text" class="cell_text" placeholder="Nachname" name="nachname">
+                <td class="cell_content"><input  th:field="*{nachname}" type="text" class="cell_text" placeholder="Nachname" name="nachname">
 
             </tr>
             <tr>
                 <td class="cell_bold">Username</td>
-                <td class="cell_content"><input th:placeholder="${view.user.username}" type="text" class="cell_text" placeholder="Username" name="username">
+                <td class="cell_content"><input th:field="*{username}" type="text" class="cell_text" placeholder="Username" name="username">
 
             </tr>
             <tr>
                 <td class="cell_bold">Email</td>
-                <td class="cell_content"><input th:placeholder="${view.user.email}" type="text" class="cell_text" placeholder="Email" name="email">
+                <td class="cell_content"><input  th:field="*{email}" type="text" class="cell_text" placeholder="Email" name="email">
 
             </tr>
             <tr>
                 <td class="cell_bold">Geburtsdatum</td>
-                <td class="cell_content"><input th:placeholder="${view.user.geburtsdatum}" type="text" class="cell_text" placeholder="Geburtsdatum" name="geburtsdatum"></td>
+                <td class="cell_content"><input  th:field="*{geburtsdatum}" type="text" class="cell_text" placeholder="Geburtsdatum" name="geburtsdatum"></td>
 
             </tr>
             <tr>
                 <td class="cell_bold">Sollarbeitszeit</td>
-                <td class="cell_content"><input th:placeholder="${view.user.sollArbeitszeit}" type="text" class="cell_text" name="soll" placeholder="Sollarbeit"></td>
+                <td class="cell_content"><input th:field="*{sollArbeitszeit}" type="text" class="cell_text" name="soll" placeholder="Sollarbeit"></td>
             </tr>
             <tr>
                 <td class="cell_bold">Passwort</td>
-                <td class="cell_content"><input type="password" class="cell_text" placeholder="Password" name="password"></td>
+                <td class="cell_content"><input type="password" class="cell_text" placeholder="Passwort" name="password" th:field="*{password}"></td>
             </tr>
             <tr>
                 <td class="cell_bold">Ist Admin?</td>
-                <td class="cell_content"><input type="checkbox" th:checked="${view.user.istAdmin}" class="cell_text" name="admin" placeholder="Ist Admin?"/></td>
+                <td class="cell_content"><input type="checkbox" th:checked="*{istAdmin}" th:field="*{istAdmin}" class="cell_text" name="admin" placeholder="Ist Admin?"/></td>
             </tr>
             </tbody>
         </table>
         </div>
         <div class="text-center"><button class="btn btn-primary" type="submit" style="font-family: Signika, sans-serif;background: rgb(16,85,92);">Absenden</button></div>
         </form>
-    <footer class="footer-basic" style="background: rgba(255,255,255,0);margin-top: 7%;margin-bottom: 0;padding-bottom: 0;padding-top: 60px;">
-        <ul class="list-inline">
-            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a></li>
-            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"></li>
-            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">About</a></li>
-            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Impressum</a></li>
-            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#">Privacy Policy</a></li>
-        </ul>
-        <p class="copyright" style="font-family: Signika, sans-serif;color: rgb(180,180,180);">WatchClock © 2021</p>
-    </footer>
 </section>
+    <footer class="text-center" style="color: rgb(16, 85, 92);background: #fff468;padding-bottom: 0px;margin-top: -3%;height: 80px;">
+        <ul class="list-inline" style="padding-top: 10px;">
+            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="/start" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a></li>
+            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="/about" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">About</a></li>
+            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="/impressum" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Impressum</a></li>
+            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="color: rgb(16,85,92);">Privacy Policy</a></li>
+        </ul>
+        <p class="copyright" style="font-family: Signika, sans-serif;color: rgb(0,0,0);">WatchClock © 2021</p>
+    </footer>
 <script src="/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 </div>

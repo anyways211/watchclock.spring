@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 
 <head>
     <meta charset="utf-8">
@@ -21,42 +22,46 @@
                         class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="navbar-nav ml-auto" style="text-align: right;font-size: 20px;color: rgb(16, 85, 92);">
-                        <li class="nav-item"><a class="nav-link active" href="#"
-                                                style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);font-weight: normal;">Start</a>
-                        </li>
-                        <li class="nav-item" style="text-align: right;"><a class="nav-link" href="#"
-                                                                           style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);">Profil</a>
-                        </li>
-                        <li class="nav-item" style="text-align: right;"><a class="nav-link" href="#"
-                                                                           style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);">Logout</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link active" href="/start" style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);font-weight: normal;">Start</a></li>
+                        <li class="nav-item" style="text-align: right;"><a class="nav-link" href="/profil" style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);">Profil</a></li>
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')" class="nav-item" style="text-align: right;"><a class="nav-link" href="/userUebersicht" style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);">Userübersicht</a></li>
+                        <li class="nav-item" style="text-align: right;"><a class="nav-link" href="/zeitUebersicht" style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);">Zeitübersicht</a></li>
+                        <li class="nav-item" style="text-align: right;"><a class="nav-link" href="/logout" style="text-align: right;font-family: Signika, sans-serif;color: rgb(16,85,92);">Logout</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <div class="text-center" id="logo">
-            <picture><img src="assets/img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"></picture>
+            <picture><img src="/img/WatchClockLogo_Farbe_g.svg" width="12%" alt="WatchClock Logo"></picture>
         </div>
     </div>
-    <div class="overflow-hidden"
-         style="max-width: 80%;font-family: Signika, sans-serif;margin-right: 10%;margin-left: 10%;height: 60%;">
+    <div class="overflow-auto"
+         style="max-width: 70%;font-family: Signika, sans-serif;margin-right: 15%;margin-left: 15%;height: 60%;">
         <h2 class="text-center" style="text-align: left;margin-bottom: 3%;margin-top: -1%;">
             <br><strong>Impressum</strong></h2>
-        <p data-aos="fade" style="font-family: Signika, sans-serif;font-size: 14px;text-align: center;margin-top: -2%;">
-            <br><span style="text-decoration: underline;">Angaben gem. § 5 TMG:</span>WatchClock GmbH<br>Berliner Straße 1<br>10969 Berlin<span
-                style="text-decoration: underline;">Kontaktaufnahme:<br></span>Telefon: 0176 00 00 0000<br>E-Mail:timestopper@watchclock.com<span
-                style="text-decoration: underline;">&nbsp;Umsatzsteuer-Identifikationsnummer gem. § 27 a Umsatzsteuergesetz:</span><br>
-            DEXXX XXX XXX<strong><span style="text-decoration: underline;">&nbsp;</span>Haftungsausschluss –
-            Disclaimer:<br></strong><span style="text-decoration: underline;">Haftung für Inhalte</span><br>
-            Alle Inhalte unseres Internetauftritts wurden mit größter Sorgfalt und nach bestem Gewissen erstellt. Für die Richtigkeit,
-            Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen. Als Diensteanbieter
-            sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen
+        <p style="font-family: Signika, sans-serif;font-size: 16px;text-align: center;margin-top: -2%;"> <span style="text-decoration: underline;">
+            Angaben gem. § 5 TMG:</span><br>WatchClock GmbH<br>Berliner Straße 1<br>10969 Berlin<br><br>
+            <span
+                style="text-decoration: underline; font-size: 16px;">Kontaktaufnahme:<br></span>
+            Telefon: 0176 00 00 0000<br>
+            E-Mail:timestopper@watchclock.com <br><br>
+            <span
+                style="text-decoration: underline; font-size: 16px;">&nbsp;
+                Umsatzsteuer-Identifikationsnummer gem. § 27 a Umsatzsteuergesetz:</span><br>
+            DE10 000 000<strong><br><br>
+                <span style="font-size: 16px;"></span>Haftungsausschluss –
+            Disclaimer:<br></strong>
+            <span style="text-decoration: underline; font-size: 16px;">Haftung für Inhalte</span><br>
+            Alle Inhalte unseres Internetauftritts wurden mit größter Sorgfalt und nach bestem Gewissen erstellt.
+            Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
+            Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen
             verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte
             oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine
             rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von
             Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.Eine diesbezügliche Haftung ist jedoch
             erst ab dem Zeitpunkt der Kenntniserlangung einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von
-            den o.g. Rechtsverletzungen werden wir diese Inhalte unverzüglich entfernen.<span style="text-decoration: underline;"><br><br>
+            den o.g. Rechtsverletzungen werden wir diese Inhalte unverzüglich entfernen.<br>
+            <span style="text-decoration: underline; font-size: 16px;"><br>
             Haftungsbeschränkung für externe Links</span><br>Unsere Webseite enthält
             Links auf externe Webseiten Dritter. Auf die Inhalte dieser direkt oder indirekt verlinkten Webseiten haben
             wir keinen Einfluss. Daher können wir für die „externen Links“ auch keine Gewähr auf Richtigkeit der Inhalte
@@ -73,32 +78,32 @@
             insbesondere für Schäden, die aus der Nutzung oder Nichtnutzung solcherart dargestellten Informationen
             entstehen, haftet allein der Diensteanbieter der Seite, auf welche verwiesen wurde, nicht derjenige, der
             über Links auf die jeweilige Veröffentlichung lediglich verweist.Werden uns Rechtsverletzungen bekannt,
-            werden die externen Links durch uns unverzüglich entfernt.<span style="text-decoration: underline;">Urheberrecht</span><br><br>Die
-            auf unserer Webseite veröffentlichen Inhalte und Werke unterliegen dem deutschen Urheberrecht (<a
+            werden die externen Links durch uns unverzüglich entfernt.<br><br>
+            <span style="text-decoration: underline; font-size: 16px;">Urheberrecht</span><br>
+            Die auf unserer Webseite veröffentlichen Inhalte und Werke unterliegen dem deutschen Urheberrecht (<a
                 href="http://www.gesetze-im-internet.de/bundesrecht/urhg/gesamt.pdf" target="_blank">http://www.gesetze-im-internet.de/bundesrecht/urhg/gesamt.pdf</a>)
             . Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung des geistigen Eigentums in
             ideeller und materieller Sicht des Urhebers außerhalb der Grenzen des Urheberrechtes bedürfen der vorherigen
-            schriftlichen Zustimmung des jeweiligen Urhebers i.S.d. Urhebergesetzes (<a
-                href="http://www.gesetze-im-internet.de/bundesrecht/urhg/gesamt.pdf" target="_blank">http://www.gesetze-im-internet.de/bundesrecht/urhg/gesamt.pdf</a>&nbsp;).
+            schriftlichen Zustimmung des jeweiligen Urhebers i.S.d. Urhebergesetzes
+            (<a href="http://www.gesetze-im-internet.de/bundesrecht/urhg/gesamt.pdf" target="_blank">http://www.gesetze-im-internet.de/bundesrecht/urhg/gesamt.pdf</a>&nbsp;).
             Downloads und Kopien dieser Seite sind nur für den privaten und nicht kommerziellen Gebrauch erlaubt. Sind
             die Inhalte auf unserer Webseite nicht von uns erstellt wurden, sind die Urheberrechte Dritter zu beachten.
             Die Inhalte Dritter werden als solche kenntlich gemacht. Sollten Sie trotzdem auf eine
             Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von
             Rechtsverletzungen werden wir derartige Inhalte unverzüglich entfernen.<br><br>
-            Dieses Impressum wurde freundlicherweise von&nbsp;<a
-                href="https://jurarat.de/">jurarat.de</a>&nbsp;zur Verfügung gestellt.<br><br></p>
+            Dieses Impressum wurde freundlicherweise von&nbsp;
+            <a href="https://jurarat.de/">jurarat.de</a>&nbsp;zur Verfügung gestellt.<br><br></p>
     </div>
-    <footer class="footer-basic" style="background: rgba(255,255,255,0);margin-top: 0;margin-bottom: 0;padding-bottom: 0;padding-top: 60px;">
-        <ul class="list-inline">
-            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="/startZeiteintrag" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a></li>
-            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"></li>
-            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">About</a></li>
-            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="/impressum" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Impressum</a></li>
-            <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#">Privacy Policy</a></li>
-        </ul>
-        <p class="copyright" style="font-family: Signika, sans-serif;color: rgb(180,180,180);">WatchClock © 2021</p>
-    </footer>
 </section>
+<footer class="text-center" style="color: rgb(16, 85, 92);background: #fff468;padding-bottom: 0px;margin-top: -3%;height: 80px;">
+    <ul class="list-inline" style="padding-top: 10px;">
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="/start" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Home</a></li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="/about" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">About</a></li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="/impressum" style="font-family: Signika, sans-serif;color: rgb(16,85,92);">Impressum</a></li>
+        <li class="list-inline-item" style="font-family: Signika, sans-serif;color: rgb(16,85,92);"><a href="#" style="color: rgb(16,85,92);">Privacy Policy</a></li>
+    </ul>
+    <p class="copyright" style="font-family: Signika, sans-serif;color: rgb(0,0,0);">WatchClock © 2021</p>
+</footer>
 <script src="/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
