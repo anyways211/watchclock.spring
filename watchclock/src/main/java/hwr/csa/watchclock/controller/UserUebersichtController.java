@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.text.SimpleDateFormat;
-
 import static org.springframework.util.ObjectUtils.isEmpty;
 
 //Controller der HTTP-Mapping für UserÜbersicht und UserAndern übernimmt!
@@ -60,7 +58,7 @@ public class UserUebersichtController {
 
          if (aktuell.isIstAdmin() != aenderung.isIstAdmin()){
              userAendernView.setError(true);
-             userAendernView.setErrormsg("Es muss mindestens ein Admin vorhaden sein");
+             userAendernView.setErrormsg("Es muss mindestens ein Admin vorhanden sein");
          }
 
         if (!passwordEncoder.matches(aenderung.getPassword(), aktuell.getPassword()) &&
