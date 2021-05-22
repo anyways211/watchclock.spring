@@ -66,12 +66,12 @@ public class DownloadController {
 
         // Stringarray-Liste mit den nötigen einträgen erstellen
         List<String[]> liste = new ArrayList<>();
-        String[] csvheader = {"Datum", "Start", "Ende", "Kommentar", "Saldo"};
+        String[] csvheader = {"Start", "Ende", "Kommentar", "Saldo"};
         liste.add(csvheader);
         for(Zeiteintrag zeiteintrag: zeitenDesMonats) {
             int[] saldoHMin = zeiteintrag.berechneSaldo();
             String saldo = String.valueOf(saldoHMin[0]) + " h " + String.valueOf(saldoHMin[1]) + " min";
-            String[] eintrag = {String.valueOf(zeiteintrag.getDatum()), String.valueOf(zeiteintrag.getVon()), String.valueOf(zeiteintrag.getBis()), zeiteintrag.getKommentar(), saldo};
+            String[] eintrag = {String.valueOf(zeiteintrag.getVon()),  String.valueOf(zeiteintrag.getBis()), zeiteintrag.getKommentar(), saldo};
             liste.add(eintrag);
         }
 
