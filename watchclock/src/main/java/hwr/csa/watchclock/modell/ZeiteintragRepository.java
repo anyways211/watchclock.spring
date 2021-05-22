@@ -15,4 +15,7 @@ public interface ZeiteintragRepository extends CrudRepository<Zeiteintrag, Integ
 
     @Transactional
     Zeiteintrag saveAndFlush(Zeiteintrag zeiteintrag);
+
+    @Transactional
+    void deleteByEintragNr(int eintragNr);
 }
