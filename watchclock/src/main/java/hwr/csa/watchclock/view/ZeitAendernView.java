@@ -1,7 +1,7 @@
 package hwr.csa.watchclock.view;
 
 import java.sql.Time;
-import java.util.Date;
+import java.sql.Date;
 
 public class ZeitAendernView {
     private long zeitEintragNr;

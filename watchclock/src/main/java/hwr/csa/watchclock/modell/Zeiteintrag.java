@@ -12,9 +12,6 @@ public class Zeiteintrag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int eintragNr;
 
-    @Column(name = "datum")
-    private Date datum;
-
     @Column(name = "von")
     private Timestamp von;
 
@@ -32,8 +29,7 @@ public class Zeiteintrag {
 
     }
 
-    public Zeiteintrag(Date datum, Timestamp von, Timestamp bis, String kommentar, User user) {
-        this.datum = datum;
+    public Zeiteintrag(Timestamp von, Timestamp bis, String kommentar, User user) {
         this.von = von;
         this.bis = bis;
         this.kommentar = kommentar;
@@ -44,13 +40,6 @@ public class Zeiteintrag {
         return eintragNr;
     }
 
-    public Date getDatum() {
-        return datum;
-    }
-
-    public void setDatum(Date datum) {
-        this.datum = datum;
-    }
 
     public Timestamp getVon() {
         return von;
@@ -83,6 +72,11 @@ public class Zeiteintrag {
     public void setUser(User user) {
         this.user = user;
     }
+
+    public Date getDatum(){
+       return new Date(this.getVon().getTime());
+    }
+
 
     public int[] berechneSaldo(){
         Timestamp von = this.von;
