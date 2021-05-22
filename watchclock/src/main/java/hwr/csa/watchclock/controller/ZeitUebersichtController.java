@@ -99,5 +99,14 @@ public class ZeitUebersichtController {
         return modelAndView;
     }
 
+    @GetMapping("zeitUebersicht/zeitLoeschen/{zeiteintragNr}")
+    public String zeitLoeschen(@PathVariable("zeiteintragNr") int zeiteintragNr){
+
+        zeiteintragRepository.deleteByEintragNr(zeiteintragNr);
+
+
+        return "redirect:/zeitUebersicht";
+    }
+
 
 }
