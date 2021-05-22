@@ -73,6 +73,11 @@ public class Zeiteintrag {
         this.user = user;
     }
 
+    public Date getDatum(){
+       return new Date(this.getVon().getTime());
+    }
+
+
     public int[] berechneSaldo(){
         Timestamp von = this.von;
         Timestamp bis = this.bis;

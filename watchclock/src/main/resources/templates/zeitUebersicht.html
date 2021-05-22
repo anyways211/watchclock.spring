@@ -44,14 +44,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <tr th:if="${view.getZeitEintraege().isEmpty()}">
-                        <td class="cell_round" colspan="3"> Keine Zeiteinträge vorhanden.</td>
-                    </tr>
-                    <tr th:each="zeiteintrag: ${view.getZeitEintraege()}">
-                            <td class="cell_round" th:text="${zeiteintrag.datum}"></td>
-                            <td class="cell_round"><span th:text="${zeiteintrag.berechneSaldo()[0]}"></span> h <span th:text="${zeiteintrag.berechneSaldo()[1]}"></span> min</td>
-                            <td class="cell_round" th:text="${zeiteintrag.kommentar}"></td>
-                     </tr>
+                <tr th:if="${view.getZeitEintraege().isEmpty()}">
+                    <td class="cell_round" colspan="3"> Keine Zeiteinträge vorhanden.</td>
+                </tr>
+                <tr th:each="zeiteintrag: ${view.getZeitEintraege()}">
+                    <td class="cell_round" th:text="${zeiteintrag.getDatum()}"></td>
+                    <td class="cell_round"><span th:text="${zeiteintrag.berechneSaldo()[0]}"></span> h <span th:text="${zeiteintrag.berechneSaldo()[1]}"></span> min</td>
+                    <td class="cell_round" th:text="${zeiteintrag.kommentar}"></td>
+                </tr>
                 </tbody>
             </table>
         </div>
