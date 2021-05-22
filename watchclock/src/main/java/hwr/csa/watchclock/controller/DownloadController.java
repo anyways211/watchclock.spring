@@ -70,12 +70,12 @@ public class DownloadController {
         liste.add(csvheader);
         for(Zeiteintrag zeiteintrag: zeitenDesMonats) {
             int[] saldoHMin = zeiteintrag.berechneSaldo();
-            double saldo = (double) saldoHMin[0] + ((double) saldoHMin[1]) / 60;
-            String[] eintrag = {String.valueOf(zeiteintrag.getDatum()), String.valueOf(zeiteintrag.getVon()), String.valueOf(zeiteintrag.getBis()), zeiteintrag.getKommentar(), String.valueOf(saldo)};
+            String saldo = String.valueOf(saldoHMin[0]) + " h " + String.valueOf(saldoHMin[1]) + " min";
+            String[] eintrag = {String.valueOf(zeiteintrag.getDatum()), String.valueOf(zeiteintrag.getVon()), String.valueOf(zeiteintrag.getBis()), zeiteintrag.getKommentar(), saldo};
             liste.add(eintrag);
         }
 
-        // Einträge aus Liste schreiben
+        // Einträge aus Liste in CSV schreiben
         PrintWriter writer = response.getWriter();
         for(String[] eintrag: liste){
             writer.write(String.join(";", eintrag)+"\n");
