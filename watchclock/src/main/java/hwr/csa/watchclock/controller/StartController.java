@@ -64,7 +64,7 @@ public class StartController {
         MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findByPersonalNr(principal.getPersonalNr());
         // neuen Zeiteintrag mit Startzeit erstellen und speichern in DB
-        Zeiteintrag neuerZeiteintrag = new Zeiteintrag(new Date(startZeit.getYear(),startZeit.getMonthValue(), startZeit.getDayOfMonth()), Timestamp.valueOf(startZeit), null, "", user);
+        Zeiteintrag neuerZeiteintrag = new Zeiteintrag(Timestamp.valueOf(startZeit), null, "", user);
         zeiteintragRepository.saveAndFlush(neuerZeiteintrag);
         return "redirect:/start";
     }

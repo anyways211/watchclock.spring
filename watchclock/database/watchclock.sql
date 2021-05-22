@@ -18,14 +18,13 @@ Insert into users values (2, "Juliane", "Ruß", "juliane.russ@gmx.de", "juliane.
 
 create table zeiteintrag(
 	eintrag_Nr Int(6) auto_increment primary key NOT NULL,
-    datum date not null,
     von datetime,
     bis datetime,
     kommentar varchar(100),
     personal_Nr int(6),
     foreign key (personal_Nr) references users(personal_Nr));
 
-##insert into zeiteintrag values(1, "20.04.21", "9.00.00", "15.00.00","", 1);
+insert into zeiteintrag values(1, "20.04.21 9.00.00", "20.04.21 15.00.00","", 1);
 
 Select * from users;
 Select * from zeiteintrag;

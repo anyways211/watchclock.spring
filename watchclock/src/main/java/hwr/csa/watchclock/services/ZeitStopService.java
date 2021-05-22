@@ -4,12 +4,17 @@ import hwr.csa.watchclock.modell.User;
 import hwr.csa.watchclock.modell.Zeiteintrag;
 import hwr.csa.watchclock.modell.ZeiteintragRepository;
 import hwr.csa.watchclock.security.MyUserPrincipal;
+import hwr.csa.watchclock.view.ZeitAendernView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+
+import static org.apache.logging.log4j.util.Strings.isBlank;
+import static org.springframework.util.ObjectUtils.isEmpty;
 
 //Service der validierungen und Berechnungen beim Zeit stoppen übernimmt
 @Service
@@ -39,7 +44,7 @@ public class ZeitStopService {
                         zeiteintragRepository.saveAndFlush(startZeiteintrag);
                     }else{ // wenn Zeiteintrag noch nicht vorhanden, neuen erstellen und speichern
                         // Zeiteintrag erstellen
-                        Zeiteintrag neuerZeiteintrag = new Zeiteintrag(new Date(vonLDT.getYear(),vonLDT.getMonthValue(), vonLDT.getDayOfMonth()),von, bis, kommentar, user);
+                        Zeiteintrag neuerZeiteintrag = new Zeiteintrag(von, bis, kommentar, user);
                         // System.out.println("Neuer Zeiteintrag: von: " + von.toString() + " | bis: " + bis.toString());
                         //System.out.println("Saldo: " + berechneSaldo(von, bis)[0] + " h "+ berechneSaldo(von, bis)[1] + " min");
                         // Zeiteintrag speichern
@@ -64,7 +69,7 @@ public class ZeitStopService {
                         zeiteintragRepository.saveAndFlush(startZeiteintrag);
                     }else { // wenn Zeiteintrag noch nicht vorhanden, neuen erstellen und speichern
                         // Zeiteintrag erstellen
-                        Zeiteintrag neuerZeiteintrag = new Zeiteintrag(new Date(vonLDT.getYear(),vonLDT.getMonthValue(), vonLDT.getDayOfMonth()),von, bis, kommentar, user);
+                        Zeiteintrag neuerZeiteintrag = new Zeiteintrag(von, bis, kommentar, user);
                         // System.out.println("Neuer Zeiteintrag: von: " + von.toString() + " | bis: " + bis.toString());
                         //System.out.println("Saldo: " + berechneSaldo(von, bis)[0] + " h "+ berechneSaldo(von, bis)[1] + " min");
                         // Zeiteintrag speichern
@@ -75,5 +80,50 @@ public class ZeitStopService {
                 }
             }
         }
+    }
+
+    public Zeiteintrag checkAenderung(Zeiteintrag aktuell, ZeitAendernView geaendert){
+        //Tag hat sich geändert
+        if (!isEmpty(geaendert.getTag()) && !geaendert.getTag().equals(new Date(aktuell.getVon().getTime()))){
+            //von geändert --> timestamp mit neuem Datum und neuer Zeit
+            if(!isEmpty(geaendert.getVon()) && !geaendert.getVon().equals(new Time(aktuell.getVon().getTime()))){
+                aktuell.setVon(dateTimeToTimeStamp(geaendert.getTag(), geaendert.getVon()));
+            }
+            //von nicht geändert --> timestamp mit neuem Datum und alter Zeit
+            else{
+                aktuell.setVon(dateTimeToTimeStamp(geaendert.getTag(), new Time(aktuell.getVon().getTime())));
+            }
+            //bis geändert --> timestam mit neuem Datum und neuer Zeit
+            if(!isEmpty(geaendert.getBis()) && !geaendert.getBis().equals(new Time(aktuell.getBis().getTime()))){
+                aktuell.setBis(dateTimeToTimeStamp(geaendert.getTag(), geaendert.getBis()));
+            }
+            //bis nicht geändert --> timestamp mit neuem Datum und alter Zeit
+            else{
+                aktuell.setBis(dateTimeToTimeStamp(geaendert.getTag(), new Time(aktuell.getBis().getTime())));
+            }
+        }
+        //Tag ist gleich
+        else{
+            //von geändert --> timestamp mit altem Datum und neuer Zeit
+            if(!isEmpty(geaendert.getVon()) && !geaendert.getVon().equals(new Time(aktuell.getVon().getTime()))){
+                aktuell.setVon(dateTimeToTimeStamp(new Date(aktuell.getVon().getTime()), geaendert.getVon()));
+            }
+            //bis geändert --> timestamp mit altem Datum und neuer Zeit
+            if(!isEmpty(geaendert.getBis()) && !geaendert.getBis().equals(new Time(aktuell.getBis().getTime()))){
+                aktuell.setBis(dateTimeToTimeStamp(new Date(aktuell.getBis().getTime()), geaendert.getBis()));
+            }
+            //in else zweigen kann das Datum gleich bleiben --> es hat sich nichts geänddert
+        }
+        //Aenderung an Kommentar übernehmen
+        if(!isBlank(geaendert.getKommentar()) && geaendert.getKommentar().equals(aktuell.getKommentar())){
+            aktuell.setKommentar(geaendert.getKommentar());
+        }
+
+        return aktuell;
+    }
+    //aus date und time einen Timestamp machen
+    public Timestamp dateTimeToTimeStamp(Date date, Time time){
+        String timestamp = date + " " + time;
+        return Timestamp.valueOf(timestamp);
     }
 }

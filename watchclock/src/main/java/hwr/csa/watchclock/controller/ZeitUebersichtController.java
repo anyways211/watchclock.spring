@@ -2,6 +2,7 @@ package hwr.csa.watchclock.controller;
 
 import hwr.csa.watchclock.modell.Zeiteintrag;
 import hwr.csa.watchclock.modell.ZeiteintragRepository;
+import hwr.csa.watchclock.services.ZeitStopService;
 import hwr.csa.watchclock.view.ZeitAendernView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import java.sql.Date;
 
 @Controller
 public class ZeitUebersichtController {
+    @Autowired
+    ZeitStopService zeitStopService;
 
     @Autowired
     ZeiteintragRepository zeiteintragRepository;
@@ -44,15 +47,19 @@ public class ZeitUebersichtController {
     }
 
     @PostMapping("/zeitUebersicht/zeitAendern/{zeiteintragNr}")
-    public ModelAndView GetZeitAendern(@PathVariable("zeiteintragNr") int zeiteintragNr, ModelAndView modelAndView){
+    public ModelAndView GetZeitAendern(@PathVariable("zeiteintragNr") int zeiteintragNr, ZeitAendernView zeitAendernView){
+        ModelAndView modelAndView = new ModelAndView();
 
-        ZeitAendernView zeitAendernView = new ZeitAendernView();
-        Zeiteintrag zeiteintrag = zeiteintragRepository.findByEintragNr(zeiteintragNr);
+        Zeiteintrag aktuell = zeiteintragRepository.findByEintragNr(zeiteintragNr);
+        //aenderungen in aktuell schreiben
+        aktuell = zeitStopService.checkAenderung(aktuell, zeitAendernView);
+        //aktuell in DB schreiben
+        zeiteintragRepository.saveAndFlush(aktuell);
 
         zeitAendernView.setZeitEintragNr(zeiteintragNr);
-        zeitAendernView.setTag(new Date(zeiteintrag.getVon().getTime()));
-        zeitAendernView.setVon(new Time(zeiteintrag.getVon().getTime()));
-        zeitAendernView.setBis(new Time(zeiteintrag.getVon().getTime()));
+        zeitAendernView.setTag(new Date(aktuell.getVon().getTime()));
+        zeitAendernView.setVon(new Time(aktuell.getVon().getTime()));
+        zeitAendernView.setBis(new Time(aktuell.getBis().getTime()));
 
         modelAndView.addObject("view", zeitAendernView);
         modelAndView.setViewName("zeitAendern");
