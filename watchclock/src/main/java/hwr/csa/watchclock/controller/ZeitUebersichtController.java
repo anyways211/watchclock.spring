@@ -32,9 +32,17 @@ public class ZeitUebersichtController {
     UserRepository userRepository;
 
     @GetMapping("/zeitUebersicht")
-    public ModelAndView startTest2(){
+    public ModelAndView zeitUebersicht(){
+        // aktuellen Nutzer bekommen
+        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByPersonalNr(principal.getPersonalNr());
+        // zeiten für diesen User bekommen
+        List<Zeiteintrag> zeiten = zeiteintragRepository.findAllByUserOrderByBisDesc(user);
         ModelAndView modelView = new ModelAndView();
+        ZeitUebersichtView zeitUebersichtView = new ZeitUebersichtView();
+        zeitUebersichtView.setZeitEintraege(zeiten);
         modelView.setViewName("zeitUebersicht");
+        modelView.addObject("view", zeitUebersichtView);
         return modelView;
     }
 
