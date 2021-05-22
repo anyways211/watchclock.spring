@@ -30,6 +30,22 @@ public class ZeitUebersichtController {
         User user = userRepository.findByPersonalNr(principal.getPersonalNr());
         // zeiten für diesen User bekommen
         List<Zeiteintrag> zeiten = zeiteintragRepository.findAllByUserOrderByBisDesc(user);
+        int index =0;
+        boolean nullvalue = false;
+        // Index des Eintrags ohne Biszeit finden, falls vorhanden
+        for(Zeiteintrag zeiteintrag:zeiten){
+            try{
+                if(zeiteintrag.getBis().equals(null)){
+                    zeiten.remove(zeiteintrag);
+                }
+            }catch(Exception e){
+                nullvalue =true;
+                index = zeiten.indexOf(zeiteintrag);
+            }
+        }
+        // Eintrag ohne Biszeit rausnehmen
+        if(nullvalue) zeiten.remove(index);
+        // View erstellen und Variablen hinzufügen
         ModelAndView modelView = new ModelAndView();
         ZeitUebersichtView zeitUebersichtView = new ZeitUebersichtView();
         zeitUebersichtView.setZeitEintraege(zeiten);
