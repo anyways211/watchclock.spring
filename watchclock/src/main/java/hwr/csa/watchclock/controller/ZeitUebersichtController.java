@@ -68,10 +68,13 @@ public class ZeitUebersichtController {
         ZeitAendernView zeitAendernView = new ZeitAendernView();
         Zeiteintrag zeiteintrag = zeiteintragRepository.findByEintragNr(zeiteintragNr);
 
+        //Timestamps von Zeiteintrag splitten und in View-Attribute füllen
         zeitAendernView.setZeitEintragNr(zeiteintragNr);
-        zeitAendernView.setTag(new Date(zeiteintrag.getVon().getTime()));
-        zeitAendernView.setVon(new Time(zeiteintrag.getVon().getTime()));
-        zeitAendernView.setBis(new Time(zeiteintrag.getBis().getTime()));
+        String[] split = String.valueOf(zeiteintrag.getVon()).split(" ");
+        zeitAendernView.setTag(split[0]);
+        zeitAendernView.setVon(split[1].substring(0,5));
+        split = String.valueOf(zeiteintrag.getBis()).split(" ");
+        zeitAendernView.setBis(split[1].substring(0, 5));
         zeitAendernView.setKommentar(zeiteintrag.getKommentar());
 
         modelAndView.addObject("view", zeitAendernView);
@@ -84,15 +87,27 @@ public class ZeitUebersichtController {
         ModelAndView modelAndView = new ModelAndView();
 
         Zeiteintrag aktuell = zeiteintragRepository.findByEintragNr(zeiteintragNr);
-        //aenderungen in aktuell schreiben
-        aktuell = zeitStopService.checkAenderung(aktuell, zeitAendernView);
-        //aktuell in DB schreiben
-        zeiteintragRepository.saveAndFlush(aktuell);
+        if (!zeitStopService.fieldsEmpty(zeitAendernView)) {
 
-        zeitAendernView.setZeitEintragNr(zeiteintragNr);
-        zeitAendernView.setTag(new Date(aktuell.getVon().getTime()));
-        zeitAendernView.setVon(new Time(aktuell.getVon().getTime()));
-        zeitAendernView.setBis(new Time(aktuell.getBis().getTime()));
+            //aenderungen in aktuell schreiben
+            aktuell = zeitStopService.checkAenderung(aktuell, zeitAendernView);
+            //aktuell in DB schreiben
+            zeiteintragRepository.saveAndFlush(aktuell);
+
+            //Timestamps von Zeiteintrag splitten und in View-Attribute füllen
+            zeitAendernView.setZeitEintragNr(zeiteintragNr);
+            String[] split = String.valueOf(aktuell.getVon()).split(" ");
+            zeitAendernView.setTag(split[0]);
+            zeitAendernView.setVon(split[1].substring(0, 5));
+            split = String.valueOf(aktuell.getBis()).split(" ");
+            zeitAendernView.setBis(split[1].substring(0, 5));
+            zeitAendernView.setKommentar(aktuell.getKommentar());
+
+        }
+        else{
+            zeitAendernView.setError(true);
+            zeitAendernView.setErrormsg("Bitte füllen Sie mindestens die Felder Tag, Von und Bis!");
+        }
 
         modelAndView.addObject("view", zeitAendernView);
         modelAndView.setViewName("zeitAendern");
@@ -103,8 +118,6 @@ public class ZeitUebersichtController {
     public String zeitLoeschen(@PathVariable("zeiteintragNr") int zeiteintragNr){
 
         zeiteintragRepository.deleteByEintragNr(zeiteintragNr);
-
-
         return "redirect:/zeitUebersicht";
     }
 

@@ -83,47 +83,55 @@ public class ZeitStopService {
     }
 
     public Zeiteintrag checkAenderung(Zeiteintrag aktuell, ZeitAendernView geaendert){
+        String timestampVon = String.valueOf(aktuell.getVon());
+        String[] split = timestampVon.split(" ");
+        String datumAktuell = split[0];
+        String aktuellZeitVon = split[1].substring(0,5);
+
+        String timestampBis = String.valueOf(aktuell.getBis());
+        split = timestampBis.split(" ");
+        String aktuellZeitBis = split[1].substring(0,5);
+
         //Tag hat sich geändert
-        if (!isEmpty(geaendert.getTag()) && !geaendert.getTag().equals(new Date(aktuell.getVon().getTime()))){
+        if (!isEmpty(geaendert.getTag()) && !geaendert.getTag().equals(datumAktuell)){
             //von geändert --> timestamp mit neuem Datum und neuer Zeit
-            if(!isEmpty(geaendert.getVon()) && !geaendert.getVon().equals(new Time(aktuell.getVon().getTime()))){
-                aktuell.setVon(dateTimeToTimeStamp(geaendert.getTag(), geaendert.getVon()));
+            if(!isEmpty(geaendert.getVon()) && !geaendert.getVon().equals(aktuellZeitVon)){
+                aktuell.setVon(Timestamp.valueOf(geaendert.getTag() + " " + geaendert.getVon() + ":00"));
             }
             //von nicht geändert --> timestamp mit neuem Datum und alter Zeit
             else{
-                aktuell.setVon(dateTimeToTimeStamp(geaendert.getTag(), new Time(aktuell.getVon().getTime())));
+                aktuell.setVon(Timestamp.valueOf(geaendert.getTag()+ " " + aktuellZeitVon + ":00"));
             }
-            //bis geändert --> timestam mit neuem Datum und neuer Zeit
-            if(!isEmpty(geaendert.getBis()) && !geaendert.getBis().equals(new Time(aktuell.getBis().getTime()))){
-                aktuell.setBis(dateTimeToTimeStamp(geaendert.getTag(), geaendert.getBis()));
+            //bis geändert --> timestamp mit neuem Datum und neuer Zeit
+            if(!isEmpty(geaendert.getBis()) && !geaendert.getBis().equals(aktuellZeitBis)){
+                aktuell.setBis(Timestamp.valueOf(geaendert.getTag() + " " + geaendert.getBis() + ":00"));
             }
             //bis nicht geändert --> timestamp mit neuem Datum und alter Zeit
             else{
-                aktuell.setBis(dateTimeToTimeStamp(geaendert.getTag(), new Time(aktuell.getBis().getTime())));
+                aktuell.setBis(Timestamp.valueOf(geaendert.getTag()+" " + aktuellZeitBis + ":00"));
             }
         }
         //Tag ist gleich
         else{
             //von geändert --> timestamp mit altem Datum und neuer Zeit
-            if(!isEmpty(geaendert.getVon()) && !geaendert.getVon().equals(new Time(aktuell.getVon().getTime()))){
-                aktuell.setVon(dateTimeToTimeStamp(new Date(aktuell.getVon().getTime()), geaendert.getVon()));
+            if(!isEmpty(geaendert.getVon()) && !geaendert.getVon().equals(aktuellZeitVon)){
+                aktuell.setVon(Timestamp.valueOf(datumAktuell + " " + geaendert.getVon()+ ":00"));
             }
             //bis geändert --> timestamp mit altem Datum und neuer Zeit
-            if(!isEmpty(geaendert.getBis()) && !geaendert.getBis().equals(new Time(aktuell.getBis().getTime()))){
-                aktuell.setBis(dateTimeToTimeStamp(new Date(aktuell.getBis().getTime()), geaendert.getBis()));
+            if(!isEmpty(geaendert.getBis()) && !geaendert.getBis().equals(aktuellZeitBis)){
+                aktuell.setBis(Timestamp.valueOf(datumAktuell+ " " + geaendert.getBis()+ ":00"));
             }
             //in else zweigen kann das Datum gleich bleiben --> es hat sich nichts geänddert
         }
         //Aenderung an Kommentar übernehmen
-        if(!isBlank(geaendert.getKommentar()) && geaendert.getKommentar().equals(aktuell.getKommentar())){
+        if(!geaendert.getKommentar().equals(aktuell.getKommentar())){
             aktuell.setKommentar(geaendert.getKommentar());
         }
 
         return aktuell;
     }
-    //aus date und time einen Timestamp machen
-    public Timestamp dateTimeToTimeStamp(Date date, Time time){
-        String timestamp = date + " " + time;
-        return Timestamp.valueOf(timestamp);
+    public boolean fieldsEmpty(ZeitAendernView view){
+        return (isBlank(view.getTag())||isBlank(view.getBis())||isBlank(view.getVon()));
+
     }
 }

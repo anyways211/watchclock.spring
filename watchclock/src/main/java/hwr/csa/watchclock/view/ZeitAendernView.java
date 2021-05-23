@@ -5,12 +5,12 @@ import java.sql.Date;
 
 public class ZeitAendernView {
     private long zeitEintragNr;
-    private Date tag;
-    private Time von;
-    private Time bis;
+    private String tag;
+    private String von;
+    private String bis;
     private String kommentar;
     private boolean error;
-    private boolean errormsg;
+    private String errormsg;
 
     public long getZeitEintragNr() {
         return zeitEintragNr;
@@ -20,27 +20,27 @@ public class ZeitAendernView {
         this.zeitEintragNr = zeitEintragNr;
     }
 
-    public Date getTag() {
+    public String getTag() {
         return tag;
     }
 
-    public void setTag(Date tag) {
+    public void setTag(String tag) {
         this.tag = tag;
     }
 
-    public Time getVon() {
+    public String getVon() {
         return von;
     }
 
-    public void setVon(Time von) {
+    public void setVon(String von) {
         this.von = von;
     }
 
-    public Time getBis() {
+    public String getBis() {
         return bis;
     }
 
-    public void setBis(Time bis) {
+    public void setBis(String bis) {
         this.bis = bis;
     }
 
@@ -60,11 +60,11 @@ public class ZeitAendernView {
         this.error = error;
     }
 
-    public boolean isErrormsg() {
+    public String getErrormsg() {
         return errormsg;
     }
 
-    public void setErrormsg(boolean errormsg) {
+    public void setErrormsg(String errormsg) {
         this.errormsg = errormsg;
     }
 }
