@@ -36,6 +36,14 @@ public class Zeiteintrag {
         this.user = user;
     }
 
+    public Zeiteintrag(int eintragNr,Timestamp von, Timestamp bis, String kommentar, User user) {
+        this.eintragNr = eintragNr;
+        this.von = von;
+        this.bis = bis;
+        this.kommentar = kommentar;
+        this.user = user;
+    }
+
     public int getEintragNr() {
         return eintragNr;
     }
@@ -106,5 +114,18 @@ public class Zeiteintrag {
             }
         }
         return result;
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == null){ return false;}
+
+        Zeiteintrag eintrag = (Zeiteintrag) obj;
+
+        return (this.getEintragNr() == eintrag.getEintragNr() &&
+                this.getVon().equals(eintrag.getVon()) &&
+                this.getBis().equals(eintrag.getBis()) &&
+                this.getKommentar().equals(eintrag.getKommentar()));
+
     }
 }

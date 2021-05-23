@@ -9,4 +9,5 @@ public class WatchclockApplication{
 	public static void main(String[] args) throws Throwable {
 		SpringApplication.run(WatchclockApplication.class, args);
 	}
+
 }
