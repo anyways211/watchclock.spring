@@ -146,8 +146,6 @@ public class User {
     @Override
     public boolean equals(Object obj){
         if (obj == null){ return false;}
-        if (obj == this) {return true;}
-        if (!obj.getClass().equals(getClass())){return false;}
 
         User user = (User) obj;
         if (this.getPersonalNr() == user.getPersonalNr() &&
