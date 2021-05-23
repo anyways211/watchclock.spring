@@ -82,6 +82,7 @@ public class UserUebersichtController {
                 userAendernView.setError(true);
                 userAendernView.setErrormsg("Es muss mindestens ein Admin vorhanden sein");
             }
+
             //wurde bei Validierung festgestellt, dass das Passwort nicht den Anforderungen entspricht
             if (!passwordEncoder.matches(aenderung.getPassword(), aktuell.getPassword()) &&
                     !isEmpty(aenderung.getPassword())){

@@ -64,7 +64,7 @@ public class UserService {
             aktuell.setSollArbeitszeit(aenderung.getSollArbeitszeit());
         }
         if (!passwordEncoder.matches(aenderung.getPassword(), aktuell.getPassword())
-                && !(isBlank(aenderung.getPassword()) && aenderung.getPassword().matches(pattern))) {
+                && !isBlank(aenderung.getPassword()) && aenderung.getPassword().matches(pattern)) {
             aktuell.setPassword(passwordEncoder.encode(aenderung.getPassword()));
         }
         if(aktuell.isIstAdmin()!=aenderung.isIstAdmin()){
