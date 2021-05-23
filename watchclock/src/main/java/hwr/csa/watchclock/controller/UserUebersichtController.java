@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
 
@@ -43,9 +43,15 @@ public class UserUebersichtController {
     //Controller der UserAendern mit aktuellen Daten des ausgewählten Users anzeigt
     @GetMapping("userUebersicht/userAendern/{personalNr}")
     public ModelAndView getUserAendern(@PathVariable("personalNr") long personalNr){
-        UserAendernView userAendernView = new UserAendernView();
+
         ModelAndView modelView = new ModelAndView();
-        userAendernView.setUser(userRepository.findByPersonalNr(personalNr));
+        User user = (userRepository.findByPersonalNr(personalNr));
+        UserAendernView userAendernView;
+        Integer sollArbeitszeit = new Integer(user.getSollArbeitszeit());
+        userAendernView = new UserAendernView(user.getPersonalNr(),
+                user.getVorname(), user.getNachname(), user.getUsername(), user.getEmail(),
+                user.getGeburtsdatum().toString(), sollArbeitszeit.toString(),
+                user.getPassword(), user.isIstAdmin());
         modelView.setViewName("userAendern");
         modelView.addObject("view", userAendernView);
         return modelView;
@@ -56,30 +62,49 @@ public class UserUebersichtController {
     public ModelAndView postUserAendern(@PathVariable("personalNr") long personalNr, UserAendernView userAendernView){
         ModelAndView modelView = new ModelAndView();
         User aktuell = userRepository.findByPersonalNr(personalNr);
-        User aenderung = userAendernView.getUser();
         userAendernView.setError(false);
         userAendernView.setErrormsg("");
-        userAendernView.setUser(null);
+        try{
+            Date date = Date.valueOf(userAendernView.getGeburtsdatum());
+            //user aus View-Attributen parsen
+            User aenderung = new User((long) userAendernView.getPersonalNr(), userAendernView.getVorname(),
+                userAendernView.getNachname(), userAendernView.getEmail(), userAendernView.getUsername(),
+                Integer.parseInt(userAendernView.getSollarbeitszeit()), userAendernView.getPassword(),
+                date, userAendernView.isIstAdmin());
 
-        //gab es korrekte Aenderungen, dann diese in User aktuell schreiben
-        aktuell = userService.checkAenderungen(aktuell, aenderung);
-        //korrekte Änderungen in DB speichern
-         userRepository.saveAndFlush(aktuell);
+            //gab es korrekte Aenderungen? dann diese in User aktuell schreiben
+            aktuell = userService.checkAenderungen(aktuell, aenderung);
+            //korrekte Änderungen in DB speichern
+            userRepository.saveAndFlush(aktuell);
 
-        //wurde bei Validierung festgestellt, das dem letzten Admin seine rechte entzogen werden sollen?
-         if (aktuell.isIstAdmin() != aenderung.isIstAdmin()){
-             userAendernView.setError(true);
-             userAendernView.setErrormsg("Es muss mindestens ein Admin vorhanden sein");
-         }
-        //wurde bei Validierung festgestellt, dass das Passwort nicht den Anforderungen entspricht
-        if (!passwordEncoder.matches(aenderung.getPassword(), aktuell.getPassword()) &&
-                !isEmpty(aenderung.getPassword())){
+            //wurde bei Validierung festgestellt, das dem letzten Admin seine rechte entzogen werden sollen?
+            if (aktuell.isIstAdmin() != aenderung.isIstAdmin()){
+                userAendernView.setError(true);
+                userAendernView.setErrormsg("Es muss mindestens ein Admin vorhanden sein");
+            }
+            //wurde bei Validierung festgestellt, dass das Passwort nicht den Anforderungen entspricht
+            if (!passwordEncoder.matches(aenderung.getPassword(), aktuell.getPassword()) &&
+                    !isEmpty(aenderung.getPassword())){
 
+                userAendernView.setError(true);
+                userAendernView.setErrormsg("Fehler beim Ändern des Passwortes. Kontrollieren Sie die Passwortvorgaben");
+            }
+
+        }
+        catch (Exception e){
             userAendernView.setError(true);
-            userAendernView.setErrormsg("Fehler beim Ändern des Passwortes. Kontrollieren Sie die Passwortvorgaben");
+            userAendernView.setErrormsg("Bitte kontrollieren Sie ihre Eingaben und füllen Sie alle Felder aus!");
         }
 
-        userAendernView.setUser(aktuell);
+        //Änderungen in View-Klasse schreiben
+        userAendernView.setVorname(aktuell.getVorname());
+        userAendernView.setNachname(aktuell.getNachname());
+        userAendernView.setUsername(aktuell.getUsername());
+        userAendernView.setEmail(aktuell.getEmail());
+        userAendernView.setSollarbeitszeit(String.valueOf(aktuell.getSollArbeitszeit()));
+        userAendernView.setPassword(aktuell.getPassword());
+        userAendernView.setIstAdmin(aktuell.isIstAdmin());
+
         modelView.setViewName("userAendern");
         modelView.addObject("view", userAendernView);
         return modelView;
@@ -132,7 +157,12 @@ public class UserUebersichtController {
         String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$!?%_.:,;'^&+*=])(?=\\S+$).{5,}";
 
         try{
-            User user = userZufuegenView.getUser();
+            Date date = Date.valueOf(userZufuegenView.getGeburtsdatum());
+            //user aus View-Attributen parsen
+            User user = new User((long) userZufuegenView.getPersonalNr(), userZufuegenView.getVorname(),
+                    userZufuegenView.getNachname(), userZufuegenView.getEmail(), userZufuegenView.getUsername(),
+                    Integer.parseInt(userZufuegenView.getSollarbeitszeit()), userZufuegenView.getPassword(),
+                    date, userZufuegenView.isIstAdmin());
             //sind alle Felder gefüllt?
             if(userService.leereFelder(user)){
                 userZufuegenView.setError(true);
@@ -152,10 +182,9 @@ public class UserUebersichtController {
                 }
             }
 
-
         } catch (Exception e){
             userZufuegenView.setError(true);
-            userZufuegenView.setErrormsg("Bitte kontrollieren Sie ihre Eingaben! (Geburtsdatum bitte in folgendem Format angeben: yyyy-MM-dd)");
+            userZufuegenView.setErrormsg("Bitte kontrollieren Sie ihre Eingabenund füllen Sie alle Felder aus!");
         }
 
         ModelAndView modelView = new ModelAndView();

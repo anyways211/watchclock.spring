@@ -32,7 +32,7 @@
         <picture><img src="/img/WatchClockLogo_Farbe_g.svg" width="15%" alt="WatchClock Logo"></picture>
       </div>
     </div>
-    <form name="f" th:action="@{userZufuegen}" th:object="${view.user}" method="POST" style="background: rgba(255,255,255,0);">
+    <form name="f" th:action="@{userZufuegen}" th:object="${view}" method="POST" style="background: rgba(255,255,255,0);">
 
       <div class="table-responsive" style="margin: 0 auto; width: 550px; margin-top: 5%; text-align: center;">
         <table class="table">
@@ -62,7 +62,7 @@
          </tr>
           <tr>
             <td class="cell_bold">Sollarbeitszeit</td>
-            <td class="cell_content"><input th:field="*{sollArbeitszeit}" type="number" class="cell_text" name="soll" placeholder="Sollarbeit"></td>
+            <td class="cell_content"><input th:field="*{sollarbeitszeit}" type="text" class="cell_text" name="soll" placeholder="Sollarbeit"></td>
           </tr>
           <tr>
             <td class="cell_bold">Passwort</td>
