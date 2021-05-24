@@ -58,9 +58,11 @@ public class ProfilController {
         //altes Passwort = Passwort vom aktuellen Nutzer
         //neuesPasswort = neuesPasswortW
         //genügt neuesPasswort den Ansprüchen?
+        //altes Passwort != neues Passwort
         if(passwordEncoder.matches(passwortAendernView.getAltesPasswort(), principal.getPassword())
             && passwortAendernView.getNeuesPasswort().equals(passwortAendernView.getNeuesPasswortW())
-                && passwortAendernView.getNeuesPasswort().matches(pattern)){
+                && passwortAendernView.getNeuesPasswort().matches(pattern)
+                    && !passwortAendernView.getAltesPasswort().equals(passwortAendernView.getNeuesPasswortW())){
 
             User user = userRepository.findByPersonalNr(principal.getPersonalNr());
             user.setPassword(passwordEncoder.encode(passwortAendernView.getNeuesPasswort()));
