@@ -3,13 +3,10 @@ package hwr.csa.watchclock.services;
 import hwr.csa.watchclock.modell.User;
 import hwr.csa.watchclock.modell.Zeiteintrag;
 import hwr.csa.watchclock.modell.ZeiteintragRepository;
-import hwr.csa.watchclock.security.MyUserPrincipal;
 import hwr.csa.watchclock.view.ZeitAendernView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 

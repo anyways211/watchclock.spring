@@ -2,7 +2,6 @@ package hwr.csa.watchclock.security;
 
 import hwr.csa.watchclock.modell.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

@@ -7,7 +7,6 @@ import hwr.csa.watchclock.modell.ZeiteintragRepository;
 import hwr.csa.watchclock.services.ZeitStopService;
 import hwr.csa.watchclock.view.ZeitAendernView;
 import hwr.csa.watchclock.security.MyUserPrincipal;
-import hwr.csa.watchclock.view.StartView;
 import hwr.csa.watchclock.view.ZeitUebersichtView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
