@@ -18,4 +18,6 @@ public interface ZeiteintragRepository extends CrudRepository<Zeiteintrag, Integ
 
     @Transactional
     void deleteByEintragNr(int eintragNr);
+
+    void deleteByUser(User user);
 }

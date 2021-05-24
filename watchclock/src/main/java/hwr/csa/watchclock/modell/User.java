@@ -2,6 +2,7 @@ package hwr.csa.watchclock.modell;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,6 +41,9 @@ public class User {
 
     @Column (name = "istAdmin")
     private boolean istAdmin;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Zeiteintrag> zeiteintraege;
 
     public User(String vorname, String nachname, String email, String username, int sollArbeitszeit,
                 String password, Date geburtsdatum, boolean istAdmin) {

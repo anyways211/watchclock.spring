@@ -2,11 +2,14 @@ package hwr.csa.watchclock.controller;
 
 import hwr.csa.watchclock.modell.User;
 import hwr.csa.watchclock.modell.UserRepository;
+import hwr.csa.watchclock.modell.ZeiteintragRepository;
+import hwr.csa.watchclock.security.MyUserPrincipal;
 import hwr.csa.watchclock.services.UserService;
 import hwr.csa.watchclock.view.UserAendernView;
 import hwr.csa.watchclock.view.UserUebersichtView;
 import hwr.csa.watchclock.view.UserZufuegenView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,8 @@ public class UserUebersichtController {
     UserRepository userRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    ZeiteintragRepository zeiteintragRepository;
 
     //Controller der UserUebersicht anzeigt
     @GetMapping("/userUebersicht")
@@ -125,9 +130,14 @@ public class UserUebersichtController {
             userUebersichtView.setErrormsg("Etwas ist schief gelaufen, der zu löschende User existiert nicht");
         }
         else{
-           // User user = zuLoeschen.get();
+            MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            //Verhindern das User das eigene Konto löscht
+            if (zuLoeschen.getPersonalNr() == principal.getPersonalNr()) {
+                userUebersichtView.setError(true);
+                userUebersichtView.setErrormsg("Sie können nicht Ihr eigenes Konto löschen!");
+            }
             //verhindern das letzter Admin gelöscht wird
-            if (zuLoeschen.isIstAdmin() && !userService.mehrAlsEinAdmin()) {
+            else if (zuLoeschen.isIstAdmin() && !userService.mehrAlsEinAdmin()) {
                 userUebersichtView.setError(true);
                 userUebersichtView.setErrormsg("Es muss mindestens ein Admin vorhanden sein!");
             }
@@ -164,6 +174,7 @@ public class UserUebersichtController {
                     userZufuegenView.getNachname(), userZufuegenView.getEmail(), userZufuegenView.getUsername(),
                     Integer.parseInt(userZufuegenView.getSollarbeitszeit()), userZufuegenView.getPassword(),
                     date, userZufuegenView.isIstAdmin());
+
             //sind alle Felder gefüllt?
             if(userService.leereFelder(user)){
                 userZufuegenView.setError(true);
@@ -171,7 +182,7 @@ public class UserUebersichtController {
             }
             else{
                 //entspricht Passwort den Richtlinien
-                if (user.getPassword().matches(pattern)){
+                if (user.getPassword().matches(pattern) && !userService.usernameDoppelt(user.getUsername())){
                     //passwort codieren
                     user.setPassword(passwordEncoder.encode(user.getPassword()));
                     //neuen User speichern
