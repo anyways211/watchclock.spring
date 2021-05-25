@@ -49,7 +49,7 @@ public class UserService {
             aktuell.setNachname(aenderung.getNachname());
         }
         if (!aktuell.getUsername().equals(aenderung.getUsername()) && !isBlank(aenderung.getUsername())){
-           //wenn es den Usernamen nicht schon einmal gibt
+            //wenn es den Usernamen nicht schon einmal gibt
             if (!usernameDoppelt(aenderung.getUsername())) {
                aktuell.setUsername(aenderung.getUsername());
            }
@@ -94,10 +94,9 @@ public class UserService {
                 anzUsername += 1;
             }
         }
-        //Username Doppelt?
-        if (anzUsername > 0) {
+        if(anzUsername > 0){
             return true;
-        } else {
+        }else{
             return false;
         }
     }

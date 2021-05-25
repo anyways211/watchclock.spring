@@ -79,7 +79,7 @@ public class UserUebersichtController {
             //korrekte Änderungen in DB speichern
             userRepository.saveAndFlush(aktuell);
 
-            if(userService.usernameDoppelt(aenderung.getUsername())){
+            if(userService.usernameDoppelt(aenderung.getUsername()) && (!aenderung.getUsername().equals(aktuell.getUsername()))){
                 userAendernView.setError(true);
                 userAendernView.setErrormsg("Es existiert bereits ein User mit dem eingegebenen Usernamen!");
             }
