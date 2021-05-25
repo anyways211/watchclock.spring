@@ -50,10 +50,9 @@ public class UserUebersichtController {
         ModelAndView modelView = new ModelAndView();
         User user = (userRepository.findByPersonalNr(personalNr));
         UserAendernView userAendernView;
-        Integer sollArbeitszeit = new Integer(user.getSollArbeitszeit());
         userAendernView = new UserAendernView(user.getPersonalNr(),
                 user.getVorname(), user.getNachname(), user.getUsername(), user.getEmail(),
-                user.getGeburtsdatum().toString(), sollArbeitszeit.toString(),
+                user.getGeburtsdatum().toString(), Integer.toString(user.getSollArbeitszeit()),
                 user.getPassword(), user.isIstAdmin());
         modelView.setViewName("userAendern");
         modelView.addObject("view", userAendernView);
@@ -80,10 +79,15 @@ public class UserUebersichtController {
             //korrekte Änderungen in DB speichern
             userRepository.saveAndFlush(aktuell);
 
+            if(userService.usernameDoppelt(aenderung.getUsername())){
+                userAendernView.setError(true);
+                userAendernView.setErrormsg("Es existiert bereits ein User mit dem eingegebenen Usernamen!");
+            }
+
             //wurde bei Validierung festgestellt, das dem letzten Admin seine rechte entzogen werden sollen?
             if (aktuell.isIstAdmin() != aenderung.isIstAdmin()){
                 userAendernView.setError(true);
-                userAendernView.setErrormsg("Es muss mindestens ein Admin vorhanden sein");
+                userAendernView.setErrormsg("Es muss mindestens ein Admin vorhanden sein!");
             }
 
             //wurde bei Validierung festgestellt, dass das Passwort nicht den Anforderungen entspricht
@@ -186,9 +190,13 @@ public class UserUebersichtController {
                     //neuen User speichern
                     userRepository.saveAndFlush(user);
                 }
-                else {
+                else if (!user.getPassword().matches(pattern)){
                     userZufuegenView.setError(true);
                     userZufuegenView.setErrormsg("Prüfen Sie die Passwortrichtlinien");
+                }
+                else if (userService.usernameDoppelt(user.getUsername())){
+                    userZufuegenView.setError(true);
+                    userZufuegenView.setErrormsg("Es existiert bereits ein User mit diesem Usernamen!");
                 }
             }
 
