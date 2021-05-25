@@ -168,7 +168,8 @@ public class UserUebersichtController {
     @PostMapping("userUebersicht/userZufuegen")
     public ModelAndView PostUserZufuegen(UserZufuegenView userZufuegenView){
         String pattern = "(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$!?%_.:,;'^&+*=])(?=\\S+$).{5,}";
-
+        userZufuegenView.setError(false);
+        userZufuegenView.setErrormsg("");
         try{
             Date date = Date.valueOf(userZufuegenView.getGeburtsdatum());
             //user aus View-Attributen parsen

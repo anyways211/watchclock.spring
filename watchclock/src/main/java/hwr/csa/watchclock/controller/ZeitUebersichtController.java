@@ -84,6 +84,8 @@ public class ZeitUebersichtController {
     @PostMapping("/zeitUebersicht/zeitAendern/{zeiteintragNr}")
     public ModelAndView GetZeitAendern(@PathVariable("zeiteintragNr") int zeiteintragNr, ZeitAendernView zeitAendernView){
         ModelAndView modelAndView = new ModelAndView();
+        zeitAendernView.setError(false);
+        zeitAendernView.setErrormsg("");
 
         Zeiteintrag aktuell = zeiteintragRepository.findByEintragNr(zeiteintragNr);
         if (!zeitStopService.fieldsEmpty(zeitAendernView)) {
