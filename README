@@ -1,4 +1,11 @@
-Projekt an der HWR im 4. Semester in Client-Server-Programmierung
+Projekt an der HWR im 4. Semester in Client-Server-Programmierung.
+Idee: Programm zum Tracken der Arbeitszeit.
+Auf der Startseite kann die Zeitmessung begonnen und beendet werden.
+Soll Arbeitszeit für mehrere Projekte getrackt werden, kann ein Kommentar mit dem jeweiligen Projektnamen eingefügt werden.
+Als Admin können Nutzer eingesehen, angelegt, gelöscht und geändert werden.
+Als Nutzer können Zeiten gemessen und als Einträge gespeichert werden.
+Der Nutzer kann seine gespeicherten Daten und sein Passwort ändern.
+Angelegte Zeiteinträge können vom jeweiligen Nutzer geändert werden.
 
 Installationshinweise
 
@@ -14,3 +21,4 @@ Um die Anwendung nutzbar zu machen, müssen die folgenden Schritte auf dem Serve
 Zu beginn des existieren in Ihrer Datenbank 2 Nutzer mit folgenden Daten:
 Username: admin		        Passwort: UserPassword
 Username: juliane.russ		Passwort: UserPassword
+
