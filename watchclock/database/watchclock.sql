@@ -5,7 +5,7 @@ Create table users (
 	personal_Nr INT(6) auto_increment primary key,
     vorname VARCHAR(30) NOT NULL,
 	nachname VARCHAR(30) NOT NULL,
-	email VARCHAR(50) NOT NULL,
+	email VARaCHAR(50) NOT NULL,
     username VARCHAR(50) NOT NULL,
 	geburtsdatum date,
     soll_Arbeitszeit INT (2),

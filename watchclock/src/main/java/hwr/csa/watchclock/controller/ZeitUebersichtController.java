@@ -117,10 +117,7 @@ public class ZeitUebersichtController {
 
     @GetMapping("zeitUebersicht/zeitLoeschen/{zeiteintragNr}")
     public String zeitLoeschen(@PathVariable("zeiteintragNr") int zeiteintragNr){
-
         zeiteintragRepository.deleteByEintragNr(zeiteintragNr);
         return "redirect:/zeitUebersicht";
     }
-
-
 }

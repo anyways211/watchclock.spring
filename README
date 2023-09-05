@@ -1,0 +1,16 @@
+Projekt an der HWR im 4. Semester in Client-Server-Programmierung
+
+Installationshinweise
+
+Um die Anwendung nutzbar zu machen, müssen die folgenden Schritte auf dem Server, durchgeführt werden.
+1.	Laden Sie das folgende Git-Repository herunter: https://github.com/anyways211/watchclock.spring .
+2.	Installieren Sie eine Java-IDE, plus JDK 1.15.
+3.	Installieren Sie MySQL-Server. Erstellen Sie eine Server-Instanz, welche über localhost:3306 erreichbar ist, mit einem Nutzer namens „root“ und dem Passwort „root“.
+4.	Geben Sie dem Nutzer root, alle Rechte für die Server-Instanz.
+5.	Erstellen Sie auf dem Server ein Schema mit dem Namen „watchclock“.
+6.	Führen Sie das im Git-Repository unter /database liegende SQL-Script aus.
+7.	Das Programm nutzt Maven, installieren Sie die hierfür nötige Erweiterung ihrer IDE und laden Sie die in der pom.xml befindlichen Dependencies.
+8.	Starten Sie die Java Klasse WatchclockApplication.java, um den Server zu starten.
+Zu beginn des existieren in Ihrer Datenbank 2 Nutzer mit folgenden Daten:
+Username: admin		        Passwort: UserPassword
+Username: juliane.russ		Passwort: UserPassword
